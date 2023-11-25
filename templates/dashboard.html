@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dashboard</title>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,400i,700");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Raleway, sans-serif;
+      }
+
+      .main-container {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 0 20px #c3c3c367;
+        margin: 20px;
+        width: 400px; /* Adjust the width as needed */
+      }
+
+      .main-container h2 {
+        margin: 0 0 20px 0;
+        color: #555;
+        font-size: 24px;
+        font-weight: 300;
+      }
+
+      .radio-buttons {
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .custom-radio input {
+        display: none;
+      }
+
+      .radio-btn {
+        margin: 10px;
+        width: 220px;
+        height: 240px;
+        border: 3px solid transparent;
+        display: inline-block;
+        border-radius: 10px;
+        position: relative;
+        text-align: center;
+        box-shadow: 0 0 20px #c3c3c367;
+        cursor: pointer;
+      }
+
+      .radio-btn > i {
+        color: #ffffff;
+        background-color: #00ff00; /* Change pink to green here */
+        font-size: 20px;
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%) scale(2);
+        border-radius: 50px;
+        padding: 3px;
+        transition: 0.5s;
+        pointer-events: none;
+        opacity: 0;
+      }
+
+      .radio-btn .hobbies-icon {
+        width: 150px;
+        height: 150px;
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .radio-btn .hobbies-icon img {
+        display: block;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      .radio-btn .hobbies-icon i {
+        color: #00ff00; /* Change pink to green here */
+        line-height: 80px;
+        font-size: 60px;
+      }
+
+      .radio-btn .hobbies-icon h3 {
+        color: #555;
+        font-size: 18px;
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .custom-radio input:checked + .radio-btn {
+        border: 2px solid #00ff00; /* Change pink to green here */
+      }
+
+      .custom-radio input:checked + .radio-btn > i {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+      }
+
+      .submit-btn {
+        background-color: #008000; /* Green color for the button */
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    {% for message in messages %} {% endfor %} {% if user.is_authenticated %}
+    <h2>Welcome {{ user.username }}</h2>
+    {% endif %}
+
+    <h1>Cross-Border Transaction</h1>
+    <div class="container">
+      <div class="main-container">
+        <div class="options d-flex justify-content-center">
+          <div class="option d-flex justify-content-evenly">
+            <div
+              class="radio-buttons options d-flex col-md-6 justify-content-evenly"
+            >
+              <label class="custom-radio">
+                <input type="radio" name="radio" checked />
+                <span class="radio-btn"
+                  ><i class="las la-check"></i>
+                  <div class="hobbies-icon">
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsF8v9fkzufPj1W4zOrhj2LanHxoP1i64K_w&usqp=CAU"
+                      alt="Business Image"
+                      style="max-width: 100%; max-height: 100%"
+                    />
+                    <h3 class="">BUSINESS</h3>
+                  </div>
+                </span>
+              </label>
+              <label class="custom-radio">
+                <input type="radio" name="radio" />
+                <span class="radio-btn"
+                  ><i class="las la-check"></i>
+                  <div class="hobbies-icon">
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPSjWiAn4qY3b4KwUYgpNQUZ8WsHElEeJzdg&usqp=CAU"
+                      alt="Business Image"
+                      style="max-width: 100%; max-height: 100%"
+                    />
+                    <h3 class="">PERSONAL</h3>
+                  </div>
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <button class="submit-btn" id="openPaymentDetailsBtn">Next</button>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  document
+    .getElementById("openPaymentDetailsBtn")
+    .addEventListener("click", function () {
+      window.location.href = "{% url 'payment_details' %}";
+    });
+</script>

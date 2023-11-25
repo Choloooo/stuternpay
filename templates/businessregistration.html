@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Business Registration</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    />
+    <style>
+      h3 {
+        font-family: sans-serif;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      .card {
+        width: 100%;
+        max-width: 400px;
+      }
+
+      /* Add media queries to change the layout for smaller screens */
+      @media (max-width: 768px) {
+        .card {
+          width: 80%;
+        }
+
+        h3 {
+          font-size: 1.5rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .card {
+          width: 90%;
+        }
+
+        h3 {
+          font-size: 1.2rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .card {
+          width: 95%;
+        }
+
+        h3 {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="bg-light">
+    <div class="container mt-5">
+      <div class="shadow p-4 mx-auto" style="max-width: 400px">
+        <h2 class="text-center mb-4">Business Registration</h2>
+        <form
+          action="{% url 'business_registration' %}"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="name" class="form-label">Business Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              placeholder="Enter Business Name"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="rc_number" class="form-label">RC Number</label>
+            <input
+              type="text"
+              class="form-control"
+              id="rc_number"
+              name="rc_number"
+              placeholder="Enter RC Number"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="cac_number" class="form-label">CAC Number</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cac_number"
+              name="cac_number"
+              placeholder="Enter CAC Number"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="cac_certificate" class="form-label"
+              >CAC Certificate (PDF)</label
+            >
+            <input
+              type="file"
+              class="form-control"
+              id="cac_certificate"
+              name="cac_certificate"
+              accept=".pdf"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="additional_data" class="form-label"
+              >Additional Data</label
+            >
+            <textarea
+              class="form-control"
+              id="additional_data"
+              name="additional_data"
+              placeholder="Enter Additional Data"
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js (Optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

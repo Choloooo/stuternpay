@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Beneficiary</title>
+
+    <style>
+      h3 {
+        font-family: sans-serif;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      .card {
+        width: 100%;
+        max-width: 400px;
+      }
+
+      /* Add media queries to change the layout for smaller screens */
+      @media (max-width: 768px) {
+        .card {
+          width: 80%;
+        }
+
+        h3 {
+          font-size: 1.5rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .card {
+          width: 90%;
+        }
+
+        h3 {
+          font-size: 1.2rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .card {
+          width: 95%;
+        }
+
+        h3 {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="d-flex mx-auto align-items-center">
+    <div class="container">
+      <!-- Login -->
+      <div class="shadow p-5 mx-auto" style="max-width: 40rem">
+        <h3 class="text-center font-weight-bold text-uppercase mb-3">
+          Add Beneficiary
+        </h3>
+        <form action="{% url 'login' %}" method="post">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="fullname" class="form-label">Full name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="fullname"
+              name="fullname"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="accountnumber" class="form-label">Account number</label>
+            <input
+              type="text"
+              class="form-control"
+              id="accountnumber"
+              name="accountnumber"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="bankname" class="form-label">Bank name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="bankname"
+              name="bankname"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="country" class="form-label">Country</label>
+            <input
+              type="text"
+              class="form-control"
+              id="country"
+              name="country"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="swiftcode" class="form-label">Swift code</label>
+            <input
+              type="text"
+              class="form-control"
+              id="swiftcode"
+              name="swiftcode"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="iban" class="form-label">I.B.A.N</label>
+            <input
+              type="text"
+              class="form-control"
+              id="iban"
+              name="iban"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <input
+              type="text"
+              class="form-control"
+              id="address"
+              name="address"
+              required
+            />
+          </div>
+
+          <div class="d-grid gap-2 col-6 mx-auto" style="margin-top: 10px">
+            <button type="submit" class="btn btn-primary">
+              Add Beneficiary
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

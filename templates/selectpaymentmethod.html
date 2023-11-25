@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f8f8;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .payment-options {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .payment-radio {
+        display: none;
+      }
+
+      .payment-label {
+        position: relative;
+        cursor: pointer;
+        padding-left: 40px;
+        display: flex;
+        align-items: center;
+        border: 2px solid transparent; /* Added border for the selected effect */
+        border-radius: 8px;
+        transition: border-color 0.3s;
+      }
+
+      .payment-radio:checked + .payment-label {
+        border-color: #3498db; /* Border color when selected */
+      }
+
+      .payment-radio {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+      }
+
+      .payment-label img {
+        width: 40px; /* Increased image size */
+        height: 40px; /* Increased image size */
+        margin-right: 10px;
+        border-radius: 50%;
+      }
+
+      button {
+        padding: 15px 30px; /* Increased button size */
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #2980b9;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="{% url 'payment_method' %}" method="post">
+      {% csrf_token %}
+      <label class="form-check-label payment-label" for="paywithbank">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="payment_method"
+          id="paywithbank"
+          value="transfer"
+        />
+        <img
+          src="https://cdn.iconscout.com/icon/premium/png-512-thumb/bank-71-85594.png?f=webp&w=512"
+          alt="Cash Icon"
+        />
+        Pay with Bank transfer
+      </label>
+
+      <label class="form-check-label payment-label" for="paywithcard">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="payment_method"
+          id="paywithcard"
+          value="card"
+        />
+        <img
+          src="https://cdn.iconscout.com/icon/free/png-512/free-credit-card-1717712-1462778.png?f=webp&w=512"
+          alt="Transfer Icon"
+        />
+        Pay with Bank Card
+      </label>
+
+      <button type="button" id="purchaseButton">Complete Purchase</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        function proceed() {
+          var selectedPaymentMethod = $(
+            "input[name=payment_method]:checked"
+          ).val();
+
+          if (selectedPaymentMethod === "card") {
+            // Redirect only when the button is clicked
+            window.location.href = "{% url 'pay_by_card' %}";
+          } else if (selectedPaymentMethod === "transfer") {
+            // Redirect only when the button is clicked
+            window.location.href = "{% url 'pay_by_transfer' %}";
+          } else {
+            // Handle other cases or provide an alert
+            alert("Please select a payment method.");
+          }
+        }
+
+        // Attach the function to the radio button change event
+        $("input[name=payment_method]").on("change", function () {
+          // You can choose to remove this line if you want the redirection on radio button change
+          // proceed(); // Call the proceed function when a radio button is selected
+        });
+
+        // Attach the function to the button click event
+        $("#purchaseButton").on("click", function () {
+          proceed(); // Call the proceed function when the button is clicked
+        });
+      });
+    </script>
+  </body>
+</html>

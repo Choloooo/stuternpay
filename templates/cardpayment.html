@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="CodePen" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico"
+    />
+    <link
+      rel="mask-icon"
+      type="image/x-icon"
+      href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg"
+      color="#111"
+    />
+
+    <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js"></script>
+
+    <title>CodePen - Credit Card Payment Form</title>
+
+    <link rel="canonical" href="https://codepen.io/a44rgonzales/pen/yLogRqX" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.17/tailwind.min.css"
+    />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600&display=swap");
+
+      body {
+        height: 100vh;
+        padding: 32px;
+        background: #f2f7ff;
+        font-family: "Libre Franklin", Verdana, sans-serif;
+        color: #697280;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 400px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+      }
+
+      .container header {
+        padding: 16px;
+        border-bottom: 1px solid #ccc;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .container form {
+        padding: 16px;
+      }
+
+      .button {
+        display: inline-block;
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 4px;
+        background-color: #4caf50;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .button:hover {
+        background-color: #45a049;
+      }
+    </style>
+
+    <script>
+      window.console = window.console || function (t) {};
+    </script>
+  </head>
+
+  <body translate="no">
+    <div class="container">
+      <header>
+        <h1>Credit Card</h1>
+        <a href="" class="text-right text-sm font-semibold text-indigo-700"
+          >Other payment methods</a
+        >
+      </header>
+      <form action="{% url 'transaction' %}">
+        <!-- Your form content here -->
+        <div
+          class="mb-4 px-3 py-1 bg-white rounded-sm border border-gray-300 focus-within:text-gray-900 focus-within:border-gray-500"
+        >
+          <label
+            for="cc-name"
+            class="text-xs tracking-wide uppercase font-semibold"
+            >Name on card</label
+          >
+          <input
+            id="cc-name"
+            type="text"
+            name="cc-name"
+            class="w-full h-8 focus:outline-none"
+            placeholder="e.g. John E Cash"
+          />
+        </div>
+
+        <div
+          class="mb-4 px-3 py-1 bg-white rounded-sm border border-gray-300 focus-within:text-gray-900 focus-within:border-gray-500"
+        >
+          <label
+            for="cc-number"
+            class="text-xs tracking-wide uppercase font-semibold"
+            >Credit card number</label
+          >
+          <input
+            id="cc-number"
+            type="text"
+            name="cc-number"
+            class="w-full h-8 focus:outline-none"
+            placeholder="16-digit card number"
+            inputmode="text"
+          />
+        </div>
+
+        <div
+          class="flex mb-4 px-3 py-1 bg-white rounded-sm border border-gray-300 focus-within:border-gray-500"
+        >
+          <div class="w-full focus-within:text-gray-900">
+            <label for="" class="text-xs tracking-wide uppercase font-semibold"
+              >Card expiry</label
+            >
+            <input
+              id="cc-expiry"
+              type="text"
+              class="w-full h-8 focus:outline-none"
+              placeholder="MM / YYYY"
+              inputmode="text"
+            />
+          </div>
+
+          <div class="w-auto focus-within:text-gray-900">
+            <label for="" class="text-xs tracking-wide uppercase font-semibold"
+              >CVV</label
+            >
+            <input
+              id="cc-cvv"
+              type="text"
+              class="w-full h-8 focus:outline-none"
+              maxlength="3"
+            />
+          </div>
+        </div>
+
+        <button class="button" id="openTransProcess">Confirm Payment</button>
+      </form>
+    </div>
+
+    <script src="https://cdn.skypack.dev/inputmask@5.0.6"></script>
+    <script>
+      var ccNumberMask = new Inputmask("9999 9999 9999 9999");
+      ccNumberMask.mask(document.getElementById("cc-number"));
+
+      var ccExpiryMask = new Inputmask("99 / 9999");
+      ccExpiryMask.mask(document.getElementById("cc-expiry"));
+    </script>
+
+    <script>
+      document
+        .getElementById("openTransProcess")
+        .addEventListener("click", function () {
+          window.location.href = "{% url 'transaction' %}";
+        });
+    </script>
+  </body>
+</html>
