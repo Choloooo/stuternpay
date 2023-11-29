@@ -1,0 +1,41 @@
+<div class="tab-pane fade" id="exchange-rate">
+    <div class="tab-content mt-2">
+      <div class="tab-pane fade show active" id="swap">
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-6">
+            <!-- Add content for Exchange Rate tab, e.g., a graph to show rates -->
+            <div class="wrapper">
+              <header>exchange rate</header>
+              <form action="#">
+                <div class="amountt">
+                  <p>Enter Amount</p>
+                  <input type="text" value="0">
+                </div>
+                <div class="amountt">
+                  <div class="drop-listt">
+                    <div class="fromm">
+                      <p>From</p>
+                      <div class="select-boxx">
+                        <img src="https://flagcdn.com/48x36/us.png" alt="flag">
+                        <select> <!-- Options tag are inserted from JavaScript --> </select>
+                      </div>
+                    </div>
+                    <div class="iconn"><i class="fas fa-exchange-alt"></i></div>
+                    <div class="to">
+                      <p>To</p>
+                      <div class="select-boxx">
+                        <img src="https://flagcdn.com/48x36/np.png" alt="flag">
+                        <select> <!-- Options tag are inserted from JavaScript --> </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="exchange-ratee">Getting exchange rate...</div>
+                  <button>Get Exchange Rate</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

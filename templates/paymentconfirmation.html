@@ -10,7 +10,6 @@
     />
     <style>
       /* Your CSS Styles Here */
-
       .card {
         border: 1px solid #ddd;
         border-radius: 10px;
@@ -18,34 +17,77 @@
         box-shadow: 0 0 20px #c3c3c367;
         margin: 20px;
       }
+      a {
+        color: #28a745;
+        text-decoration: none;
+        font-size: 14px;
+        display: inline-block;
+        margin-top: 10px;
+      }
+      a:hover {
+        color: #000000;
+        text-decoration: underline;
+      }
     </style>
   </head>
   <body>
     <div class="container mt-5">
       <div class="row justify-content-center">
         <div class="col-lg-6 card mt-4">
-          <h2 class="text-center">Payment Confirmation</h2>
+          <h2 class="text-center" style="color: #28a745">
+            Payment Confirmation
+          </h2>
 
           <div class="mt-4">
+            <p>
+              You are sending: <span id="sendAmount"></span>&nbsp;<span
+                class="fromCurrency"
+              ></span>
+            </p>
+            <p>
+              Receiver gets: <span id="recipientAmount"></span>&nbsp;<span
+                class="receivingCurrency"
+              ></span>
+            </p>
+
             <!-- Payment Details -->
-            <p>You are sending: <strong>$10,000</strong></p>
-            <p>Recipient gets: <strong>$888</strong></p>
-            <p>Exchange rate: <strong>1 USD = 117,000</strong></p>
-            <p>Transaction fee: <strong>$200</strong></p>
-            <p>Total fee to pay: <strong>$10,000</strong></p>
+            <p>
+              transaction Fee: <span id="transactionFee"></span> &nbsp;<span
+                class="fromCurrency"
+              ></span>
+            </p>
+
+            <p>
+              Total amount with fee:
+              <span id="totalAmountWithFee"></span>&nbsp;<span
+                class="fromCurrency"
+              ></span>
+            </p>
 
             <!-- Recipient Information -->
             <div class="mt-4">
-              <h4 class="text-center">Recipient Information</h4>
-              <p>Recipient: <strong>Anne Marie</strong></p>
-              <p>Reason: <strong>Airline</strong></p>
-              <p>Delivery method: <strong>Bank Account</strong></p>
+              <h4 class="text-center" style="margin-left: 50px">
+                Recipient Information
+              </h4>
+              <p>Reason: <span id="reason"></span></p>
+              <p>Delivery method: <span id="deliveryMethod"></span></p>
+              <p>Recipient: <span id="recipientName"></span></p>
+
+              <p>Receiver gets: <span id="receiverGet"></span></p>
+              <p>Fee: <span id="feeAmount"></span></p>
+              <p>Total: <span id="total"></span></p>
             </div>
           </div>
 
           <!-- Change Recipient Link -->
           <div class="mt-4 text-start">
-            <p>Change Recipient</p>
+            <a
+              href="#"
+              onmouseover="this.style.color='#333'; this.style.textDecoration='underline';"
+              onmouseout="this.style.color='#28a745'; this.style.textDecoration='none';"
+            >
+              Change Payment Method
+            </a>
           </div>
 
           <!-- Submit Button -->
@@ -66,6 +108,70 @@
         .addEventListener("click", function () {
           window.location.href = "{% url 'payment_method' %}";
         });
+    </script>
+
+    <!-- Display retrieved values from sessionStorage -->
+    <script>
+      var sendAmount = sessionStorage.getItem("sendAmount");
+      var fromCurrency = sessionStorage.getItem("fromCurrency");
+      var receivingCurrency = sessionStorage.getItem("toCurrency");
+      var totalExRate = sessionStorage.getItem("totalExRate");
+      var feeAmount = sessionStorage.getItem("feeAmount");
+      var recipientAmount = sessionStorage.getItem("recipientAmount");
+
+      var reason = sessionStorage.getItem("reason");
+      var deliveryMethod = sessionStorage.getItem("deliveryMethod");
+      var recipientName = sessionStorage.getItem("recipientName");
+
+      var transactionFee = sessionStorage.getItem("feeAmount");
+      var totalAmountWithFee = sessionStorage.getItem("totalAmountWithFee");
+
+      // Retrieve values from sessionStorage in another HTML file
+
+      //var totalAmountWithFee = sessionStorage.getItem("totalAmountWithFee");
+
+      // Use the retrieved values as needed
+      console.log("Fee Amount:", feeAmount);
+      console.log("Total Amount with Fee:", totalAmountWithFee);
+      console.log("Recipient Amount:", recipientAmount);
+      // Display values on the page
+
+      document.getElementById("sendAmount").innerText = sendAmount;
+      document.getElementById("transactionFee").innerText = feeAmount;
+      document.getElementById("totalAmountWithFee").innerText =
+        totalAmountWithFee;
+      totalAmountWithFee;
+      document.getElementsByClassName("fromCurrency").innerText = fromCurrency;
+      var fromCurrencyElements =
+        document.getElementsByClassName("fromCurrency");
+
+      // Loop through each element and set its innerText
+      for (var i = 0; i < fromCurrencyElements.length; i++) {
+        fromCurrencyElements[i].innerText = fromCurrency;
+      }
+
+      var receivingCurrencyElements =
+        document.getElementsByClassName("receivingCurrency");
+
+      // Loop through each element and set its innerText
+      for (var i = 0; i < receivingCurrencyElements.length; i++) {
+        receivingCurrencyElements[i].innerText = receivingCurrency;
+      }
+      document.getElementById("recipientAmount").innerText = recipientAmount;
+
+      document.getElementById("sendingAmount").innerText = sendAmount;
+      document.getElementById("sendingCurrency").innerText = fromCurrency;
+      document.getElementById("receivingAmount").innerText = totalExRate;
+      document.getElementsByClassName("receivingCurrency").innerText =
+        receivingCurrency;
+      document.getElementById(
+        "exchangeRate"
+      ).innerText = `1 ${fromCurrency} = ${totalExRate} ${toCurrency}`;
+      document.getElementById("transactionFee").innerText = feeAmount;
+
+      document.getElementById("reason").innerText = reason;
+      document.getElementById("deliveryMethod").innerText = deliveryMethod;
+      document.getElementById("recipientName").innerText = recipientName;
     </script>
   </body>
 </html>

@@ -1,0 +1,235 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="upgrade-insecure-requests"
+    />
+
+    <script src="/static/js/style.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
+    <title>Cross Border Transactions</title>
+    <style>
+      .form-container {
+        max-width: 400px;
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .centered-tabs {
+        display: flex;
+        justify-content: center;
+      }
+
+      .rate-container {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+      }
+      .rate-container img {
+        max-height: 20px; /* Adjust the max height as needed */
+      }
+
+      .rate-label {
+        margin-right: 10px;
+      }
+
+      .rate-value {
+        font-size: 20px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container mt-5">
+      <!-- Centered Nav tabs -->
+      <ul class="nav nav-tabs centered-tabs" id="myTabs">
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            id="swap-tab"
+            data-bs-toggle="tab"
+            href="#swap"
+            >Swap</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            id="exchange-rate-tab"
+            data-bs-toggle="tab"
+            href="#exchange-rate"
+            >Exchange Rate</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            id="transaction-tab"
+            data-bs-toggle="tab"
+            href="#transaction"
+            >Transaction</a
+          >
+        </li>
+      </ul>
+
+      <!-- Tab content -->
+      <div class="tab-content mt-2">
+        <div class="tab-pane fade show active" id="swap">
+          <div class="row justify-content-center">
+            <div class="col-12 col-lg-6">
+              <!-- Swap Form -->
+              <div class="form-container mx-auto">
+                <form method="post" action="/send_details/">
+                  <input
+                    type="hidden"
+                    name="csrfmiddlewaretoken"
+                    value="6Vd8QU31eIWMc2JTBWXiR1v2LSse6jyh5l8OVHNUTJU3D3kI8VcKdvQgXRRA2NLX"
+                  />
+                  <div class="mb-3">
+                    <label for="reason" class="form-label"
+                      >Reason for Swapping</label
+                    >
+                    <select class="form-select" id="reason" name="reason">
+                      <option value="1">Reason 1</option>
+                      <option value="2">Reason 2</option>
+                      <!-- Add more options as needed -->
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="currencyToSend" class="form-label">Send</label>
+                    <select
+                      class="form-select"
+                      name="currency-one"
+                      id="currency-one"
+                    >
+                      <option value="CAD">NGN</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="amountToSend" class="form-label"
+                      >Recieve currency</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="amount-one"
+                      id="amount-one"
+                      value="1"
+                    />
+                    <div
+                      class="rate-container d-flex justify-content-center align-items-center"
+                    >
+                      <div class="rate-label">
+                        <i class="bx bx-expand-horizontal"></i>
+                        1000
+                      </div>
+                    </div>
+
+                    <div
+                      class="rate-container d-flex justify-content-center align-items-center"
+                    >
+                      <div class="rate-label">
+                        <i class="bx bx-expand-horizontal"></i>
+                      </div>
+
+                      <button
+                        type="button"
+                        class="btn btn-secondary btn-sm ml-2"
+                        style="background-color: rgba(255, 255, 255, 0.5)"
+                        id="swap"
+                      >
+                        <img
+                          src="/static/img/swap.svg"
+                          alt="Swap Icon"
+                          class="img-fluid mr-1"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="amountToReceive" class="form-label"
+                      >Amount to Receive</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="amount-two"
+                      readonly
+                      id="amount-two"
+                      placeholder="0"
+                      value="1"
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label
+                      for="currency-two"
+                      id="currency-two"
+                      class="form-label"
+                      >Currency to Recieve</label
+                    >
+                    <select
+                      class="form-select"
+                      id="currencyToSend"
+                      name="currencyToSend"
+                    >
+                      <option value="USD" selected>USD</option>
+                      <option value="EUR">EUR</option>
+                      <option value="CNY">CNY</option>
+                      <option value="GBP">GBP</option>
+                      <option value="CAD">CAD</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <button
+                      type="submit"
+                      id="openPaymentConfirmation"
+                      class="btn btn-primary"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Exchange Rate Tab -->
+        <div class="tab-pane fade" id="exchange-rate">
+          <!-- Add content for Exchange Rate tab, e.g., a graph to show rates -->
+        </div>
+
+        <!-- Transaction Tab -->
+        <div class="tab-pane fade" id="transaction">
+          <!-- Add content for Transaction tab, e.g., a list of transactions -->
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Add JavaScript for tab switching if needed
+
+      var myTabs = new bootstrap.Tab(document.getElementById("swap-tab"));
+      myTabs.show();
+    </script>
+    <script>
+      document
+        .getElementById("openPaymentConfirmation")
+        .addEventListener("click", function () {
+          window.location.href = "/payment_details/";
+        });
+    </script>
+    <script src="/static/js/style.js"></script>
+  </body>
+</html>

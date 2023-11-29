@@ -23,6 +23,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("users.urls")),  # Add this line
     path("", include("payment.urls")),  # Add this line
+    path("", include("beneficiary.urls")),  # Add this line
 ]
 
 if settings.DEBUG:

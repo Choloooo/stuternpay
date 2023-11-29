@@ -164,6 +164,8 @@
       .to {
         flex: 1;
         margin-right: 10px; /* Adjust as needed for spacing */
+        display: flex;
+        align-items: center;
       }
 
       .custom-input {
@@ -175,19 +177,45 @@
       .custom-input input {
         flex: 3;
       }
+
+      form .drop-list {
+        display: flex;
+        margin-top: 20px;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .drop-list .select-box {
+        display: flex;
+        width: 115px;
+        height: 45px;
+        align-items: center;
+        border-radius: 5px;
+        justify-content: center;
+        border: 1px solid #999;
+      }
+
+      .drop-list .icon {
+        cursor: pointer;
+        margin-top: 30px;
+        font-size: 22px;
+      }
+
+      .drop-list {
+        display: flex;
+        align-items: center; /* Center vertically */
+        justify-content: space-around; /* Evenly distribute space */
+        margin-top: 20px; /* Adjust margin as needed */
+      }
     </style>
   </head>
 
   <body>
     <!-- New navigation menu -->
     <div class="nav">
-      <a href="#" onclick="showContent('swap')">Send</a>
-      <a
-        href="{% url 'exchange_rate' %}#exchange-rate-new"
-        onclick="showContent('exchange-rate-new')"
-        >Exchange Rate</a
+      <a href="{% url 'payment_details' %}" onclick="showContent('swap')"
+        >Send</a
       >
-
+      <a href="#" onclick="showContent('exchange-rate-new')">Exchange Rate</a>
       <a href="#" onclick="showContent('transaction')">Transaction</a>
     </div>
 
@@ -195,58 +223,53 @@
     <div class="container mt-5">
       <div class="tab-content mt-2">
         <!-- Swap Content -->
-        <div class="tab-pane fade show active content" id="swap">
+
+        <!-- Exchange Rate Content -->
+        <div class="tab-pane fade content" id="exchange-rate-new">
+          <!-- Add content for Exchange Rate tab, e.g., exchange rate calculator -->
           <div class="row justify-content-center">
             <div class="col-12 col-lg-6">
               <div class="mx-auto wrapper">
-                <header>Send Fund</header>
-
-                <!-- Existing form content remains unchanged -->
-                <form action="#" id="sendFundsForm">
+                <header>Exchange Rate</header>
+                <form action="#">
                   <!-- Send Section -->
-                  <p>Send</p>
-                  <div class="mb-3 from custom-input">
-                    <input
-                      type="text"
-                      id="sendAmount"
-                      name="sendAmount"
-                      value=""
-                    />
-                    <div class="select-box">
-                      <img src="https://flagcdn.com/48x36/us.png" alt="flag" />
-                      <select id="fromCurrency" name="fromCurrency">
-                        <!-- Options tag are inserted from JavaScript -->
-                      </select>
+                  <p>Amount:</p>
+                  <div class="from custom-input">
+                    <input type="text" value="" />
+                  </div>
+                  <div class="drop-list">
+                    <p>From</p>
+                    <div class="from">
+                      <div class="select-box">
+                        <img
+                          src="https://flagcdn.com/48x36/us.png"
+                          alt="flag"
+                        />
+                        <select>
+                          <!-- Options tag are inserted from JavaScript -->
+                        </select>
+                      </div>
+                    </div>
+                    <div class="icon"><i class="fas fa-exchange-alt"></i></div>
+                    <p>To</p>
+                    <div class="to">
+                      <div class="select-box">
+                        <img
+                          src="https://flagcdn.com/48x36/np.png"
+                          alt="flag"
+                        />
+                        <select>
+                          <!-- Options tag are inserted from JavaScript -->
+                        </select>
+                      </div>
                     </div>
                   </div>
 
                   <!-- Recipient Section -->
-                  <p>Recipient receive:</p>
-                  <div class="to custom-input">
-                    <input
-                      type="text"
-                      id="recipientAmount"
-                      name="recipientAmount"
-                      value=""
-                    />
-                    <div class="select-box">
-                      <img src="https://flagcdn.com/48x36/us.png" alt="flag" />
-                      <select id="toCurrency" name="toCurrency">
-                        <!-- Options tag are inserted from JavaScript -->
-                      </select>
-                    </div>
-                  </div>
 
                   <div class="transaction-fee" id="transactionFee"></div>
 
                   <p class="exchange-rate"></p>
-                  <button
-                    type="button"
-                    id="openPaymentConfirmation"
-                    class="btn btn-primary"
-                  >
-                    Proceed
-                  </button>
                 </form>
               </div>
             </div>
@@ -290,69 +313,81 @@
         USD: "US",
       };
 
-      // Update the selector to cover both forms
-      const forms = document.querySelectorAll("form"),
-        getButton = document.getElementById("openPaymentConfirmation");
+      const dropList = document.querySelectorAll("form select"),
+        fromCurrency = document.querySelector(".from select"),
+        toCurrency = document.querySelector(".to select"),
+        getButton = document.querySelector("form button"),
+        amountInput = document.querySelector("form input");
 
-      forms.forEach((form) => {
-        const dropList = form.querySelectorAll("select"),
-          fromCurrency = form.querySelector(".from select"),
-          toCurrency = form.querySelector(".to select"),
-          amountInput = form.querySelector("input#sendAmount");
-
-        for (let i = 0; i < dropList.length; i++) {
-          for (let currency_code in country_list) {
-            let selected =
-              i == 0
-                ? currency_code == "USD"
-                  ? "selected"
-                  : ""
-                : currency_code == "NPR"
+      for (let i = 0; i < dropList.length; i++) {
+        for (let currency_code in country_list) {
+          let selected =
+            i == 0
+              ? currency_code == "USD"
                 ? "selected"
-                : "";
-            let optionTag = `<option value="${currency_code}" ${selected}>${currency_code}</option>`;
-            dropList[i].insertAdjacentHTML("beforeend", optionTag);
-          }
-          dropList[i].addEventListener("change", (e) => {
-            loadFlag(e.target);
-          });
+                : ""
+              : currency_code == "NPR"
+              ? "selected"
+              : "";
+          let optionTag = `<option value="${currency_code}" ${selected}>${currency_code}</option>`;
+          dropList[i].insertAdjacentHTML("beforeend", optionTag);
         }
-
-        function loadFlag(element) {
-          for (let code in country_list) {
-            if (code == element.value) {
-              let imgTag = element.parentElement.querySelector("img");
-              imgTag.src = `https://flagcdn.com/48x36/${country_list[
-                code
-              ].toLowerCase()}.png`;
-            }
-          }
-        }
-
-        // Input event listener for amount field with validation
-        amountInput.addEventListener("input", () => {
-          let inputValue = amountInput.value.trim();
-          if (!/^\d*\.?\d*$/.test(inputValue)) {
-            amountInput.value = inputValue.slice(0, -1);
-          }
-
-          getExchangeRate(form);
+        dropList[i].addEventListener("change", (e) => {
+          loadFlag(e.target);
         });
+      }
+
+      function loadFlag(element) {
+        for (let code in country_list) {
+          if (code == element.value) {
+            let imgTag = element.parentElement.querySelector("img");
+            imgTag.src = `https://flagcdn.com/48x36/${country_list[
+              code
+            ].toLowerCase()}.png`;
+          }
+        }
+      }
+
+      window.addEventListener("load", () => {
+        getExchangeRate();
       });
 
-      function getExchangeRate(form) {
-        const exchangeRateTxt = form.querySelector(".exchange-rate");
-        const transactionFeeInput = form.querySelector("#transactionFee");
-        const fromCurrency = form.querySelector(".from select");
-        const toCurrency = form.querySelector(".to select");
-        const amountInput = form.querySelector("input#sendAmount");
+      amountInput.addEventListener("input", () => {
+        let inputValue = amountInput.value.trim();
+        // Allow only numbers (including decimals)
+        amountInput.value = inputValue.replace(/[^0-9.]/g, "");
 
+        getExchangeRate();
+      });
+
+      amountInput.addEventListener("input", () => {
+        if (amountInput.value.trim() === "") {
+          clearExchangeRate();
+        }
+      });
+
+      getButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        getExchangeRate();
+      });
+
+      const exchangeIcon = document.querySelector("form .icon");
+      exchangeIcon.addEventListener("click", () => {
+        let tempCode = fromCurrency.value;
+        fromCurrency.value = toCurrency.value;
+        toCurrency.value = tempCode;
+        loadFlag(fromCurrency);
+        loadFlag(toCurrency);
+        getExchangeRate();
+      });
+
+      function getExchangeRate() {
+        const exchangeRateTxt = document.querySelector("form .exchange-rate");
+        const transactionFeeInput = document.getElementById("transactionFee");
         let amountVal = amountInput.value.trim();
-        let transactionFee = parseFloat(transactionFeeInput.value) || 0.5;
 
         if (amountVal === "") {
-          exchangeRateTxt.innerText = "";
-
+          clearExchangeRate();
           return;
         }
 
@@ -365,46 +400,32 @@
             let exchangeRate = result.conversion_rates[toCurrency.value];
             let totalExRate = (amountVal * exchangeRate).toFixed(2);
 
-            let feeAmount = (transactionFee / 100) * totalExRate;
+            let feeAmount = (transactionFeeInput.value / 100) * totalExRate;
             feeAmount = feeAmount.toFixed(2);
             let totalAmountWithFee = (
               parseFloat(totalExRate) + parseFloat(feeAmount)
             ).toFixed(2);
 
-            exchangeRateTxt.innerText = `${amountVal} ${fromCurrency.value} = ${totalExRate} ${toCurrency.value}\nFee: ${feeAmount} ${fromCurrency.value}\nTotal: ${totalAmountWithFee} ${toCurrency.value}`;
+            exchangeRateTxt.innerText = `${amountVal} ${fromCurrency.value} = ${totalExRate} ${toCurrency.value}`;
           })
           .catch(() => {
             exchangeRateTxt.innerText = "Something went wrong";
           });
       }
+
+      function clearExchangeRate() {
+        const exchangeRateTxt = document.querySelector("form .exchange-rate");
+        exchangeRateTxt.innerText = "";
+      }
     </script>
-
     <script>
-      // Your JavaScript code
-      document
-        .getElementById("openPaymentConfirmation")
-        .addEventListener("click", function () {
-          // Get values from the form
-          var sendAmount = document.getElementById("sendAmount").value;
-          var fromCurrency = document.querySelector(
-            "form select[name='fromCurrency']"
-          ).value;
-          var toCurrency = document.querySelector(
-            "form select[name='toCurrency']"
-          ).value;
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get the tab element by its ID
+        var exchangeRateTab = document.getElementById("exchange-rate-new");
 
-          // Additional values to store
-          var totalExRate = document.querySelector(".exchange-rate").innerText;
-          var feeAmount = document.querySelector("#transactionFee").innerText;
-
-          // Store values in sessionStorage
-          sessionStorage.setItem("sendAmount", sendAmount);
-          sessionStorage.setItem("fromCurrency", fromCurrency);
-          sessionStorage.setItem("toCurrency", toCurrency);
-          sessionStorage.setItem("totalExRate", totalExRate);
-          sessionStorage.setItem("feeAmount", feeAmount);
-          window.location.href = "{% url 'payment_confirmation' %}";
-        });
+        // Add the 'show' and 'active' classes to make it the default selected tab
+        exchangeRateTab.classList.add("show", "active");
+      });
     </script>
   </body>
 </html>

@@ -53,3 +53,8 @@ def pay_by_transfer(request):
 def trans_process(request):
     # Your logic for handling payments by transfer
     return render(request, "transactionprocessing.html")
+
+
+def exchange_rate(request):
+    # Your logic for handling payments by transfer
+    return render(request, "exchange_rate.html")

@@ -11,44 +11,88 @@
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
     <title>Transaction Details</title>
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+
+      .container {
+        margin-top: 50px;
+      }
+
+      h2 {
+        color: #28a745;
+      }
+
+      h4 {
+        color: #343a40;
+        margin-bottom: 20px;
+      }
+
+      .list-group-item {
+        background-color: #e9ecef;
+        border: none;
+        color: #495057;
+      }
+
+      .row {
+        margin-top: 30px;
+      }
+
+      .footer {
+        margin-top: 10px;
+        text-align: center;
+      }
+
+      .footer a {
+        margin-right: 20px;
+        color: #28a745;
+      }
+    </style>
   </head>
+
   <body>
-    <div class="container mt-4">
-      <h2>Transaction Status</h2>
-
-      <div class="row mt-4">
+    <div class="container">
+      <div class="row justify-content-center">
         <div class="col-md-6">
-          <h4>Transaction Details</h4>
-          <ul class="list-group">
-            <li class="list-group-item">Transaction Time: 25th Nov</li>
-            <li class="list-group-item">Fees: 13,043.43 NGN</li>
-            <li class="list-group-item">Delivery Method: Bank Account</li>
-            <li class="list-group-item">Bank: Wings Financial Credit Union</li>
-            <li class="list-group-item">Account Number: 9109953951</li>
-            <li class="list-group-item">Routing Number: 296076152</li>
-            <li class="list-group-item">Reason: Cash Gifts</li>
-            <li class="list-group-item">Reference Number: SW-10003850176</li>
-            <li class="list-group-item">
-              Exchange Rate: 1 USD = 1174.025852049262 NGN
-            </li>
-            <li class="list-group-item">Recipient Got: 1,111.00 USD</li>
-            <li class="list-group-item">Total Paid: 1,317,386.16 NGN</li>
-          </ul>
+          <h2 class="text-center">Transaction Status</h2>
+          <div class="mt-4">
+            <h4>Transaction Details</h4>
+            <ul class="list-group">
+              <li class="list-group-item">Transaction Time: 25th Nov</li>
+              <li class="list-group-item">Fees: 13,043.43 NGN</li>
+              <li class="list-group-item">Delivery Method: Bank Account</li>
+              <li class="list-group-item">
+                Bank: Wings Financial Credit Union
+              </li>
+              <li class="list-group-item">Account Number: 9109953951</li>
+              <li class="list-group-item">Routing Number: 296076152</li>
+              <li class="list-group-item">Reason: Cash Gifts</li>
+              <li class="list-group-item">Reference Number: SW-10003850176</li>
+              <li class="list-group-item">
+                Exchange Rate: 1 USD = 1174.03 NGN
+              </li>
+              <li class="list-group-item">Recipient Got: 1,111.00 USD</li>
+              <li class="list-group-item">Total Paid: 1,317,386.16 NGN</li>
+              <li class="list-group-item"><h5>Transaction Status</h5></li>
+              <ul class="list-group">
+                <li class="list-group-item">
+                  Initiated transfer of 1,111.00 USD to Anne Marie
+                </li>
+                <li class="list-group-item">
+                  We're waiting to receive your funds
+                </li>
+                <li class="list-group-item">
+                  Anne Marie should receive your transfer by 28th Nov, 2023
+                </li>
+              </ul>
+            </ul>
+          </div>
         </div>
-
-        <div class="col-md-6">
-          <h4>Transaction Status</h4>
-          <ul class="list-group">
-            <li class="list-group-item">
-              Initiated transfer of 1,111.00 USD to Anne Marie
-            </li>
-            <li class="list-group-item">We're waiting to receive your funds</li>
-            <li class="list-group-item">
-              Anne Marie should receive your transfer of 1,111.00 USD by 28th
-              Nov, 2023
-            </li>
-          </ul>
-        </div>
+      </div>
+      <div class="footer">
+        <a href="#">Initiate Another Transaction</a>
+        <a href="#">View Transaction History</a>
       </div>
     </div>
 

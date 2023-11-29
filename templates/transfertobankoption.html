@@ -12,78 +12,115 @@
     <style>
       body {
         background-color: #f8f9fa;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       }
+
       .container {
         display: flex;
         align-items: center;
         justify-content: center;
         height: 100vh;
       }
+
       .card {
         width: 400px;
         border-radius: 15px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
       }
+
       .card-title {
-        color: #495057;
+        color: #28a745; /* Green color for the title */
+        font-size: 24px;
+        margin-bottom: 20px;
       }
+
+      .text-center {
+        text-align: center;
+      }
+
       .list-group-item {
         background-color: #e9ecef;
         border: none;
         color: #495057;
       }
+
       .btn-success {
         background-color: #28a745;
         border: none;
+        width: 100%;
+        margin-top: 20px;
       }
+
       .btn-secondary {
         background-color: #6c757d;
         border: none;
+        width: 100%;
+        margin-top: 10px;
       }
+
       .btn-success:hover,
       .btn-secondary:hover {
         filter: brightness(90%);
       }
+
+      a {
+        color: #28a745;
+        text-decoration: none;
+        font-size: 14px;
+        display: inline-block;
+        margin-top: 10px;
+      }
+
+      a:hover {
+        color: #000000;
+        text-decoration: underline;
+      }
+
+      .expiration-message {
+        color: #555;
+        font-size: 12px;
+        margin-top: 10px;
+      }
     </style>
   </head>
+
   <body>
     <div class="container">
-      <div class="card p-4">
+      <div class="card">
         <h2 class="card-title text-center">Payment Details</h2>
 
         <p class="text-center">
-          When paying into this account, ensure the name on the bank account
-          matches your verified name on Swap.
+          When making a payment to this account, please ensure that the name on
+          the bank account matches your verified name on Swap.
         </p>
 
         <h3>Transfer details:</h3>
         <ul class="list-group mb-3">
           <li class="list-group-item">
-            <strong>Amount to send:</strong> NGN 1329243.82
+            <strong>Amount to send:</strong> NGN 1,329,243.82
           </li>
           <li class="list-group-item">
-            <strong>Account number:</strong> 9466527786
+            <strong>Account number:</strong> 9466 5277 86
           </li>
           <li class="list-group-item"><strong>Bank name:</strong> WEMA BANK</li>
         </ul>
 
-        <p>
-          The account details are only valid for this specific transaction and
+        <p class="expiration-message">
+          These account details are only valid for this specific transaction and
           will expire in 30 minutes and 50 seconds.
         </p>
 
-        <div class="text-center">
-          <button type="button" class="btn btn-success" id="openTransProcess">
-            I have paid
-          </button>
-          <button
-            type="button"
-            class="btn btn-secondary ms-2"
-            id="changeMethodButton"
-          >
-            Change Payment Method
-          </button>
-        </div>
+        <a
+          href="#"
+          onmouseover="this.style.color='#333'; this.style.textDecoration='underline';"
+          onmouseout="this.style.color='#28a745'; this.style.textDecoration='none';"
+          >Change Payment Method</a
+        >
+
+        <button type="button" class="btn btn-success" id="openTransProcess">
+          I have paid
+        </button>
       </div>
     </div>
 

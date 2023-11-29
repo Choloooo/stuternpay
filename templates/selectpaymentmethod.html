@@ -1,115 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <title>Hello, world!</title>
+
     <style>
       body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f8f8f8;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        background-color: #ffffff;
         height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Center content vertically */
+        align-items: center; /* Center content horizontally */
       }
 
-      form {
-        background-color: #fff;
-        padding: 20px;
+      .container {
+        text-align: center; /* Center content inside the container */
+      }
+
+      .row {
+        display: flex;
+        justify-content: center; /* Center columns horizontally */
+      }
+
+      .col-md-6 {
+        margin: 0 auto; /* Center column within the row */
+      }
+
+      /* Reduce spacing between radio buttons */
+      .col-md-6 input[type="radio"] {
+        margin-bottom: 5px;
+      }
+
+      *,
+      *::before,
+      *::after {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      input[type="radio"] {
+        -webkit-appearance: none;
+      }
+
+      label {
+        height: 140px;
+        width: 180px;
+        border: 4px solid #ddd;
+        margin: auto;
         border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-
-      .payment-options {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-      }
-
-      .payment-radio {
-        display: none;
-      }
-
-      .payment-label {
         position: relative;
-        cursor: pointer;
-        padding-left: 40px;
-        display: flex;
-        align-items: center;
-        border: 2px solid transparent; /* Added border for the selected effect */
-        border-radius: 8px;
-        transition: border-color 0.3s;
+        color: #000000;
+        transition: 0.5s;
+        margin-bottom: 5px; /* Reduce vertical spacing between labels */
       }
 
-      .payment-radio:checked + .payment-label {
-        border-color: #3498db; /* Border color when selected */
-      }
-
-      .payment-radio {
+      .bx {
+        font-size: 60px;
         position: absolute;
-        opacity: 0;
-        cursor: pointer;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -80%);
       }
 
-      .payment-label img {
-        width: 40px; /* Increased image size */
-        height: 40px; /* Increased image size */
-        margin-right: 10px;
-        border-radius: 50%;
+      label > span {
+        font-size: 18px;
+        font-family: "Poppins", sans-serif;
+        font-weight: 500;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 80%);
       }
 
-      button {
-        padding: 15px 30px; /* Increased button size */
-        background-color: #3498db;
-        color: #fff;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color 0.3s;
+      input[type="radio"]:checked + label {
+        background-color: #36d6ad;
+        color: #ffffff;
+        box-shadow: 0 15px 45px rgb(24, 249, 141, 0.2);
       }
 
-      button:hover {
-        background-color: #2980b9;
+      .proceed-button {
+        margin-top: 20px;
       }
     </style>
   </head>
   <body>
-    <form action="{% url 'payment_method' %}" method="post">
-      {% csrf_token %}
-      <label class="form-check-label payment-label" for="paywithbank">
-        <input
-          class="form-check-input"
-          type="radio"
-          name="payment_method"
-          id="paywithbank"
-          value="transfer"
-        />
-        <img
-          src="https://cdn.iconscout.com/icon/premium/png-512-thumb/bank-71-85594.png?f=webp&w=512"
-          alt="Cash Icon"
-        />
-        Pay with Bank transfer
-      </label>
-
-      <label class="form-check-label payment-label" for="paywithcard">
-        <input
-          class="form-check-input"
-          type="radio"
-          name="payment_method"
-          id="paywithcard"
-          value="card"
-        />
-        <img
-          src="https://cdn.iconscout.com/icon/free/png-512/free-credit-card-1717712-1462778.png?f=webp&w=512"
-          alt="Transfer Icon"
-        />
-        Pay with Bank Card
-      </label>
-
-      <button type="button" id="purchaseButton">Complete Purchase</button>
-    </form>
-
+    <div
+      class="container d-flex justify-content-evenly d-flex align-items-center"
+    >
+      <div class="row">
+        <div class="col-md-6">
+          <input type="radio" name="payment_method" id="card" value="card" />
+          <label for="card">
+            <i class="bx bxs-bank"></i>
+            <span>Transfer</span>
+          </label>
+        </div>
+        <div class="col-md-6">
+          <input
+            type="radio"
+            name="payment_method"
+            id="cash"
+            value="transfer"
+          />
+          <label for="cash">
+            <i class="bx bx-credit-card"></i>
+            <span>Card</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary proceed-button" id="purchaseButton">
+      Proceed
+    </button>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <script>

@@ -18,6 +18,8 @@
       html,
       body {
         height: 100%;
+        margin: 0;
+        padding: 0;
       }
 
       .card {
@@ -65,7 +67,7 @@
         <h3 class="text-center font-weight-bold text-uppercase mb-3">
           Add Beneficiary
         </h3>
-        <form action="{% url 'login' %}" method="post">
+        <form action="{% url 'add_beneficiary' %}" method="post">
           {% csrf_token %}
           <div class="mb-3">
             <label for="fullname" class="form-label">Full name</label>
