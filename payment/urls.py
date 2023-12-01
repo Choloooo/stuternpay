@@ -10,6 +10,8 @@ from .views import (
     pay_by_transfer,
     trans_process,
     exchange_rate,
+    process_payment,
+    user_transaction
 )
 
 urlpatterns = [
@@ -21,5 +23,8 @@ urlpatterns = [
     path("pay-by-card/", pay_by_card, name="pay_by_card"),
     path("pay-by-transfer/", pay_by_transfer, name="pay_by_transfer"),
     path("transaction-processing/", trans_process, name="transaction"),
+    path('process_payment/', process_payment, name='process_payment'),
+    path('user_transaction/', user_transaction, name='user_transaction'),
+    
     # Add other URLs as needed
 ]

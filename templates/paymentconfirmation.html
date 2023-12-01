@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {% load static %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Payment Confirmation</title>
@@ -9,6 +10,28 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
     />
     <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        scrollbar-width: thin; /* For Firefox */
+        overflow-y: scroll;    /* For IE, Edge, and Chrome */
+      }
+      
+      ::-webkit-scrollbar {
+        width: 6px;             /* Width of the scrollbar */
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background-color: #888; /* Color of the scrollbar thumb */
+        border-radius: 3px;     /* Rounded corners of the thumb */
+      }
+      
+      ::-webkit-scrollbar-track {
+        background-color: #f1f1f1; /* Color of the scrollbar track */
+      }
+
       /* Your CSS Styles Here */
       .card {
         border: 1px solid #ddd;
@@ -31,6 +54,75 @@
     </style>
   </head>
   <body>
+    <nav class="container navbar navbar-expand-lg navbar-light fixed-top bg-white">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img
+            src="{% static 'img/logo.svg' %}"
+            alt=""
+            width="30"
+            height="24"
+            class="d-inline-block align-text-top"
+          />
+          Stutern Pay
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}">
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="offcanvas offcanvas-start"
+          tabindex="-1"
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+              Stutern Pay
+            </h5>
+
+            <button
+              type="button"
+              class="btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}"
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
     <div class="container mt-5">
       <div class="row justify-content-center">
         <div class="col-lg-6 card mt-4">
@@ -69,13 +161,12 @@
               <h4 class="text-center" style="margin-left: 50px">
                 Recipient Information
               </h4>
-              <p>Reason: <span id="reason"></span></p>
-              <p>Delivery method: <span id="deliveryMethod"></span></p>
-              <p>Recipient: <span id="recipientName"></span></p>
+              <p>Name: <span id="beneficiaryName"></span></p>
+              <p>Account Number <span id="beneficiaryAccountNumber"></span></p>
+              <p>Bank: <span id="bankName"></span></p>
+              <p>Country: <span id="country"></span></p>
 
-              <p>Receiver gets: <span id="receiverGet"></span></p>
-              <p>Fee: <span id="feeAmount"></span></p>
-              <p>Total: <span id="total"></span></p>
+              <p>IBAN <span id="iban"></span></p>
             </div>
           </div>
 
@@ -86,7 +177,6 @@
               onmouseover="this.style.color='#333'; this.style.textDecoration='underline';"
               onmouseout="this.style.color='#28a745'; this.style.textDecoration='none';"
             >
-              Change Payment Method
             </a>
           </div>
 
@@ -101,6 +191,11 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
 
     <script>
       document
@@ -119,12 +214,32 @@
       var feeAmount = sessionStorage.getItem("feeAmount");
       var recipientAmount = sessionStorage.getItem("recipientAmount");
 
-      var reason = sessionStorage.getItem("reason");
-      var deliveryMethod = sessionStorage.getItem("deliveryMethod");
-      var recipientName = sessionStorage.getItem("recipientName");
+      var beneficiaryName = sessionStorage.getItem("beneficiaryName");
+      var beneficiaryAccountNumber = sessionStorage.getItem(
+        "beneficiaryAccountNumber"
+      );
+      var bankName = sessionStorage.getItem("bankName");
+      var country = sessionStorage.getItem("country");
+      var iban = sessionStorage.getItem("iban");
+      var swift = sessionStorage.getItem("swift");
 
       var transactionFee = sessionStorage.getItem("feeAmount");
       var totalAmountWithFee = sessionStorage.getItem("totalAmountWithFee");
+      var beneficiaryName = sessionStorage.getItem("beneficiaryName");
+      var beneficiaryAccountNumber = sessionStorage.getItem(
+        "beneficiaryAccountNumber"
+      );
+      var bankName = sessionStorage.getItem("bankName");
+      var country = sessionStorage.getItem("country");
+      var iban = sessionStorage.getItem("iban");
+      var swift = sessionStorage.getItem("swift");
+
+      document.getElementById("beneficiaryName").innerText = beneficiaryName;
+      document.getElementById("beneficiaryAccountNumber").innerText =
+        beneficiaryAccountNumber;
+      document.getElementById("bankName").innerText = bankName;
+      document.getElementById("country").innerText = country;
+      document.getElementById("iban").innerText = iban;
 
       // Retrieve values from sessionStorage in another HTML file
 
@@ -172,6 +287,39 @@
       document.getElementById("reason").innerText = reason;
       document.getElementById("deliveryMethod").innerText = deliveryMethod;
       document.getElementById("recipientName").innerText = recipientName;
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Retrieve each field from session
+        var beneficiaryName = sessionStorage.getItem("beneficiaryName");
+        var beneficiaryAccountNumber = sessionStorage.getItem(
+          "beneficiaryAccountNumber"
+        );
+        var bankName = sessionStorage.getItem("bankName");
+        var country = sessionStorage.getItem("country");
+        var iban = sessionStorage.getItem("iban");
+        var swift = sessionStorage.getItem("swift");
+
+        // Check if data exists and populate form fields
+        if (beneficiaryName) {
+          document.getElementById("beneficiaryName").value = beneficiaryName;
+        }
+        if (beneficiaryAccountNumber) {
+          document.getElementById("beneficiaryAccountNumber").value =
+            beneficiaryAccountNumber;
+        }
+        if (bankName) {
+          document.getElementById("bankName").value = bankName;
+        }
+        if (country) {
+          document.getElementById("country").value = country;
+        }
+        if (iban) {
+          document.getElementById("iban").value = iban;
+        }
+        if (swift) {
+          document.getElementById("swift").value = swift;
+        }
+      });
     </script>
   </body>
 </html>

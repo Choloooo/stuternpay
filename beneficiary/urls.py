@@ -2,6 +2,6 @@ from django.urls import path
 from .views import add_beneficiary
 
 urlpatterns = [
-    path("add_beneficiary/", add_beneficiary, name="add_beneficiary"),
+    path("beneficiary/", add_beneficiary, name="beneficiary"),
     # Add other URL patterns as needed
 ]

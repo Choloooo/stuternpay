@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    {%load static%}
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -14,110 +13,262 @@
       crossorigin="anonymous"
     />
 
-    <title>Hello, world!</title>
+    <link rel="stylesheet" href="style.css" />
+    <title>Stutern Pay Sign In</title>
+
     <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
       body {
-        height: 100vh;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        font-family: "Poppins", sans-serif;
+        background: #ffffff;
+        
       }
-
-      .login-form {
-        width: 300px;
+      /*------------ Login container ------------*/
+      .box-area {
+        width: 930px;
       }
-
-      .form-group {
-        margin-bottom: 15px; /* Adjust the margin for spacing between textboxes */
+      /*------------ Right box ------------*/
+      .right-box {
+        padding: 40px 30px 40px 40px;
+      }
+      /*------------ Custom Placeholder ------------*/
+      ::placeholder {
+        font-size: 16px;
+      }
+      .rounded-4 {
+        border-radius: 20px;
+      }
+      .rounded-5 {
+        border-radius: 30px;
       }
 
       .btn-success {
-        width: 100%;
+        background-color: #5fc796;
+        border: none;
+      }
+      .offcanvas {
+        width: 50%;
+      }
+      .offcanvas-body {
+        text-align: left;
       }
 
-      .forgot-link {
-        margin-top: 15px; /* Adjust the margin for spacing */
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+      /*------------ For small screens------------*/
+      @media only screen and (max-width: 768px) {
+        .box-area {
+          margin: 0 10px;
+        }
+        .left-box {
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+        .right-box {
+          padding: 20px;
+        }
       }
-
-      .forgot-link a {
-        text-decoration: none; /* Remove underline */
-        color: #007bff; /* Set the link color */
+      body {
+        scrollbar-width: thin; /* For Firefox */
+        overflow-y: scroll;    /* For IE, Edge, and Chrome */
       }
-
-      .forgot-link a:hover {
-        text-decoration: underline; /* Add underline on hover */
+      
+      ::-webkit-scrollbar {
+        width: 6px;             /* Width of the scrollbar */
       }
-
-      .form-check {
-        display: flex;
-        align-items: center;
+      
+      ::-webkit-scrollbar-thumb {
+        background-color: #888; /* Color of the scrollbar thumb */
+        border-radius: 3px;     /* Rounded corners of the thumb */
+      }
+      
+      ::-webkit-scrollbar-track {
+        background-color: #f1f1f1; /* Color of the scrollbar track */
       }
     </style>
   </head>
   <body>
+    <!----------------------- Navbar -------------------------->
+    <nav class="container navbar navbar-expand-lg navbar-light  bg-white">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img
+            src="{% static 'img/logo.svg' %}"
+            alt=""
+            width="30"
+            height="24"
+            class="d-inline-block align-text-top"
+          />
+          Stutern Pay
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}">
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
 
-    
-    <div
-      class="login-container d-flex align-items-center justify-content-center"
-    >
-    
-      <form
-        action="{% url 'login' %}"
-        method="post"
-        class="login-form text-center"
-      >
-      <h2>Login</h2>
-        {% csrf_token %}
-        {% for message in messages %}
-    <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-      <strong>Message:</strong>
-      {{ message }}
-      <button type="button" class="close" data-dismiss="alert" aria-label="close">
-        <span aria-hidden="true">&timems;</span></button>
-    </div>
-    {% endif %}
-    {% endfor %}
-        <div class="form-group">
-          <label for="">username</label>
-          <input
-            type="text"
-            class="form-control rounded-pill form-control-lg"
-            id="username"
-            name="username"
-            
-          />
-        </div>
-        <div class="form-group">
-          <label for="">Password</label>
-          <input
-            type="password"
-            class="form-control rounded-pill form-control-lg"
-            id="password"
-            name="password"
-          />
-        </div>
-        <div class="forgot-link">
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="remember"
-            />
-            <label for="remember">Remember Password</label>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="offcanvas offcanvas-start"
+          tabindex="-1"
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+              Stutern Pay
+            </h5>
+
+            <button
+              type="button"
+              class="btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
           </div>
-          <a href="#" class="text-reset">Forgot password?</a>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+              </li>
+            </ul>
+          </div>
         </div>
-        <button type="submit" class="mt-3 btn-block btn-success">Login</button>
-        <p class="mt-3 font-weight-normal">
-          Don't have any account
-          <a href="{% url 'register' %}" class="text-reset"><strong>Register Now ?</strong></a>
-        </p>
-      </form>
+      </div>
+    </nav>
+    <!----------------------- Main Container -------------------------->
+    <div
+      class="container d-flex justify-content-center align-items-center min-vh-100"
+    >
+      <!----------------------- Login Container -------------------------->
+      <div class="row rounded-5 p-3 bg-white box-area">
+        <!--------------------------- Left Box ------------------------------>
+        <div
+          class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
+        >
+          <div class="featured-image mb-3">
+            <img
+              src="{% static 'img/logo.svg' %}"
+              class="img-fluid mx-auto d-block"
+              style="max-width: 80%; height: auto"
+            />
+          </div>
+          <p
+            class="text-black fs-2"
+            style="
+              font-family: 'Courier New', Courier, monospace;
+              font-weight: 600;
+            "
+          >
+            Stutern Pay
+          </p>
+          <small
+            class="text-black text-wrap text-center"
+            style="width: 17rem; font-family: 'Courier New', Courier, monospace"
+            >Join a global community and experience seamless cross-border
+            transactions on our platform.
+          </small>
+        </div>
+
+        <!-------------------- ------ Right Box ---------------------------->
+        <div class="col-md-6 right-box">
+          <div class="row align-items-center">
+            <div class="header-text mb-4">
+              <h2>Hello, Again</h2>
+              <p>We are happy to have you back.</p>
+            </div>
+
+            <!-- Display error message if available -->
+            {% if messages %}
+              <div class="col-md-12 mb-3">
+                {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert" style="color: red;">
+                  {{ message }}
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            <form action="{% url 'login' %}" method="post" class="col-md-12">
+              {% csrf_token %}
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control form-control-lg bg-light fs-6"
+                  placeholder="Username"
+                  name="username"
+                />
+              </div>
+              <div class="input-group mb-1">
+                <input
+                  type="password"
+                  class="form-control form-control-lg bg-light fs-6"
+                  placeholder="Password"
+                  name="password"
+                />
+              </div>
+              <div class="input-group mb-5 d-flex justify-content-between">
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="formCheck"
+                  />
+                  <label for="formCheck" class="form-check-label text-secondary"
+                    ><small>Remember Me</small></label
+                  >
+                </div>
+                <div class="forgot">
+                  <small><a href="#">Forgot Password?</a></small>
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <button type="submit"class="btn btn-lg btn-success w-100 fs-6">Login</button>
+              </div>
+              <div class="input-group mb-3">
+                <button type="submit"class="btn btn-lg btn-light w-100 fs-6">
+                  <img
+                    src="https://img.icons8.com/color/48/google-logo.png"
+                    alt="google-logo"
+                    style="width: 20px"
+                    class="me-2"
+                  /><small>Sign In with Google</small>
+                </button>
+              </div>
+              <div class="row">
+                <small
+                  >Don't have an account?
+                  <a href="{% url 'register' %}">Sign Up</a></small
+                >
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script

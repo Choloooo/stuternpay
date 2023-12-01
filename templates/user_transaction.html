@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Transactions</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+
+      .container {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+      }
+
+      .back-button {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <a
+        href="#"
+        class="btn btn-secondary back-button"
+        onclick="history.go(-1);"
+        >Back</a
+      >
+      <h1 class="mb-4">View Transactions</h1>
+
+      <!-- Transaction details go here -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Beneficiary Name</th>
+            <th>Account Number</th>
+            <th>Bank</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for transaction in user_transaction %}
+          <tr>
+            <td>{{ transaction.beneficiaryName }}</td>
+            <td>{{ transaction.beneficiaryAccountNumber }}</td>
+            <td>{{ transaction.bankName }}</td>
+            <td>{{ transaction.totalAmountWithFee }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <!-- Bootstrap JS (Optional) - Needed for Bootstrap components that require JavaScript -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
+  </body>
+</html>

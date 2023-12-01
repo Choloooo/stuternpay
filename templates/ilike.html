@@ -1,431 +1,414 @@
-<!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Your existing head content remains unchanged -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <title>Stutern Pay Sign In</title>
 
     <style>
-      /* Your existing styles remain unchanged */
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+        body {
+          font-family: "Poppins", sans-serif;
+          background: #ffffff;
+          margin: 0;
+          padding: 0;
+          height: 100%;
 
-      body {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0 10px;
-        background: #caf5e1;
-      }
+        }
 
-      .wrapper {
-        width: 370px;
-        padding: 30px;
-        border-radius: 7px;
-        background: #fff;
-        box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.05);
-      }
+        /*------------ Login container ------------*/
+        .box-area {
+          width: 930px;
+        }
 
-      .wrapper header {
-        font-size: 28px;
-        font-weight: 500;
-        text-align: center;
-        margin-bottom: 20px;
-      }
+        /*------------ Custom Placeholder ------------*/
+        ::placeholder {
+          font-size: 16px;
+        }
 
-      .wrapper form {
-        margin: 20px 0;
-      }
+        .rounded-4 {
+          border-radius: 20px;
+        }
 
-      /* Add the new styles for the navigation */
-      .nav {
-        display: flex;
-        background-color: #333;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        justify-content: center;
-        z-index: 1000; /* Ensure it's above other elements */
-      }
+        .rounded-5 {
+          border-radius: 30px;
+        }
 
-      .nav a {
-        color: white;
-        padding: 14px 16px;
-        text-decoration: none;
-      }
+        .btn-success {
+          background-color: #5fc796;
+          border: none;
+        }
 
-      .nav a:hover {
-        background-color: #ddd;
-        color: black;
-      }
+        .offcanvas {
+          width: 50%;
+        }
 
-      /* Add styles for the content containers */
-      .content {
-        display: none;
-        text-align: center;
-        margin-top: 60px;
-      }
+        .nav-bottom {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: #ffffff;
+          text co
+          position: fixed;
+          width: 100%;
+          z-index: 999;
+          padding-top: 1rem;
+          padding-bottom: 1.7rem;
 
-      .content.active {
-        display: block;
-      }
-      .select-box {
-        display: flex;
-        align-items: center;
-      }
+        }
 
-      .select-box img {
-        max-width: 21px;
-        margin-right: 5px;
-      }
+        .nav-bottom a {
+          color: #408341;
+          padding: 14px 16px;
+          text-decoration: none;
+        }
 
-      .select-box select {
-        font-size: 16px;
-        background: none;
-        flex: 1;
-        margin-left: 10px;
-      }
-      div.select-box.select-boxx {
-        border-radius: 2px solid #999;
-      }
-      p {
-        text-align: left;
-      }
-      .wrapper {
-        width: 370px;
-        padding: 30px;
-        border-radius: 7px;
-        background: #fff;
-        box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.05);
-      }
+        .nav-bottom a:hover {
+          background-color: #ddd;
+          color: black;
+        }
 
-      .wrapper header {
-        font-size: 28px;
-        font-weight: 500;
-        text-align: center;
-        margin-bottom: 20px;
-      }
+        .wrapper {
+          width: 80%;
+          max-width: none; /* Remove any maximum width */
+          padding: 30px;
+          border-radius: 7px;
+          background: #fff;
 
-      .wrapper form {
-        margin: 20px 0;
-      }
 
-      .form-container {
-        max-width: 400px;
-        background-color: #f8f9fa;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
 
-      form input {
-        height: 50px;
-        font-size: 17px;
-        padding: 0 15px;
-        border: 1px solid #999;
-      }
+      /* Center the content vertically and horizontally */
 
-      form button {
-        height: 52px;
-        color: #fff;
-        font-size: 17px;
-        cursor: pointer;
-        background: #675afe;
-        transition: 0.3s ease;
-      }
+        }
 
-      form input {
-        height: 50px; /* Adjust this value as needed */
-        font-size: 17px;
-        padding: 0 15px;
-        border: 1px solid #999;
-      }
+        .wrapper form {
+          width: 100%; /* Set the form width to 100% */
+          max-width: none; /* Remove any maximum width */
+        }
 
-      form button:hover {
-        background: #4534fe;
-      }
 
-      form :where(input, select, button) {
-        width: 100%;
-        outline: none;
-        border-radius: 5px;
-        border: none;
-        margin-bottom: 15px;
-        margin-top: 15px;
-      }
 
-      form p {
-        font-size: 18px;
-        margin-bottom: 5px;
-      }
+        .wrapper header {
+          font-size: 28px;
+          font-weight: 500;
+          text-align: center;
+          margin-bottom: 20px;
+        }
 
-      form input:focus {
-        padding: 0 14px;
-        border: 2px solid #675afe;
-      }
+        .wrapper form {
+          margin: 20px 0;
+        }
 
-      .from,
-      .to {
-        flex: 1;
-        margin-right: 10px; /* Adjust as needed for spacing */
-        display: flex;
-        align-items: center;
-      }
+        .form-container {
+          max-width: 400px;
+          background-color: #f8f9fa;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-      .custom-input {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-      }
+        form input {
+          height: 50px;
+          font-size: 17px;
+          padding: 0 15px;
+          border: 1px solid #999;
+        }
 
-      .custom-input input {
-        flex: 3;
-      }
+        form button {
+          height: 52px;
+          color: #fff;
+          font-size: 17px;
+          cursor: pointer;
+          background: #675afe;
+          transition: 0.3s ease;
+        }
 
-      form .drop-list {
-        display: flex;
-        margin-top: 20px;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .drop-list .select-box {
-        display: flex;
-        width: 115px;
-        height: 45px;
-        align-items: center;
-        border-radius: 5px;
-        justify-content: center;
-        border: 1px solid #999;
-      }
+        form input {
+          height: 50px; /* Adjust this value as needed */
+          font-size: 17px;
+          padding: 0 15px;
+          border: 1px solid #999;
+        }
 
-      .drop-list .icon {
-        cursor: pointer;
-        margin-top: 30px;
-        font-size: 22px;
-      }
+        form button:hover {
+          background: #4534fe;
+        }
 
-      .drop-list {
-        display: flex;
-        align-items: center; /* Center vertically */
-        justify-content: space-around; /* Evenly distribute space */
-        margin-top: 20px; /* Adjust margin as needed */
+        form :where(input, select, button) {
+          width: 100%;
+          outline: none;
+          border-radius: 5px;
+          border: none;
+          margin-bottom: 15px;
+          margin-top: 15px;
+        }
+
+        form p {
+          font-size: 18px;
+          margin-bottom: 5px;
+        }
+
+        form input:focus {
+          padding: 0 14px;
+          border: 2px solid #675afe;
+        }
+
+        .from,
+        .to {
+          flex: 1;
+          margin-right: 10px; /* Adjust as needed for spacing */
+        }
+
+        .custom-input {
+          display: flex;
+          gap: 10px;
+          align-items: center;
+        }
+
+        .custom-input input {
+          flex: 3;
+        }
+
+
+
+        .content.active {
+          display: block;
+        }
+        .offcanvas-body {
+          text-align: left;
+        }
+
+
+
+        .box-area {
+          max-width: 800px; /* Set a maximum width */
+          width: 90%; /* Use a percentage for responsiveness */
+          margin-top: -20px;
+          margin: 0 auto; /* Center the box horizontally */
+          padding: 20px; /* Add some padding for spacing */
+          box-sizing: border-box; /* Include padding and border in the box's total width */
       }
+        /*------------ Right box ------------*/
+
+        /*------------ Custom Placeholder ------------*/
+        ::placeholder {
+          font-size: 16px;
+        }
+        .rounded-4 {
+          border-radius: 20px;
+        }
+        .rounded-5 {
+          border-radius: 30px;
+        }
+
+        .btn-success {
+          background-color: #5fc796;
+          border: none;
+        }
+        .offcanvas {
+          width: 50%;
+        }
+
+
+        .drop-list {
+          display: flex;
+          align-items: center; /* Center vertically */
+          justify-content: center; /* Center horizontally */
+          height: 10vh; /* Set the height to 100% of the viewport height */
+          /*margin: 0; /* Remove any existing margin */
+        }
+
+
+
+
+        @media only screen and (max-width: 768px) {
+          .box-area {
+            width: 100%;
+
+            margin: 0;
+            padding: 20px; /* Adjust padding as needed */
+
+            height: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-top: 2rem; /* Add your desired margin-top value */
+          }
+
+          .wrapper {
+            width: 100%;
+            height: 100%;
+            padding: 20px; /* Adjust padding as needed */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-top: 1rem; /* Add your desired margin-top value */
+          }
+
+          .wrapper form {
+            max-width: none;
+          }
+          div.select-box.select-boxx {
+            border-radius: 2px solid #999;
+          }
+          /* Add any additional styles for smaller screens here */
+
+        }
     </style>
   </head>
-
   <body>
-    <!-- New navigation menu -->
-    <div class="nav">
-      <a href="{% url 'payment_details' %}" onclick="showContent('swap')"
-        >Send</a
-      >
-      <a href="#" onclick="showContent('exchange-rate-new')">Exchange Rate</a>
-      <a href="#" onclick="showContent('transaction')">Transaction</a>
-    </div>
-
-    <!-- Content containers -->
-    <div class="container mt-5">
-      <div class="tab-content mt-2">
-        <!-- Swap Content -->
-
-        <!-- Exchange Rate Content -->
-        <div class="tab-pane fade content" id="exchange-rate-new">
-          <!-- Add content for Exchange Rate tab, e.g., exchange rate calculator -->
-          <div class="row justify-content-center">
-            <div class="col-12 col-lg-6">
-              <div class="mx-auto wrapper">
-                <header>Exchange Rate</header>
-                <form action="#">
-                  <!-- Send Section -->
-                  <p>Amount:</p>
-                  <div class="from custom-input">
-                    <input type="text" value="" />
-                  </div>
-                  <div class="drop-list">
-                    <p>From</p>
-                    <div class="from">
-                      <div class="select-box">
-                        <img
-                          src="https://flagcdn.com/48x36/us.png"
-                          alt="flag"
-                        />
-                        <select>
-                          <!-- Options tag are inserted from JavaScript -->
-                        </select>
-                      </div>
-                    </div>
-                    <div class="icon"><i class="fas fa-exchange-alt"></i></div>
-                    <p>To</p>
-                    <div class="to">
-                      <div class="select-box">
-                        <img
-                          src="https://flagcdn.com/48x36/np.png"
-                          alt="flag"
-                        />
-                        <select>
-                          <!-- Options tag are inserted from JavaScript -->
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Recipient Section -->
-
-                  <div class="transaction-fee" id="transactionFee"></div>
-
-                  <p class="exchange-rate"></p>
-                </form>
-              </div>
-            </div>
-          </div>
+    <!----------------------- Navbar -------------------------->
+    <nav class="container navbar navbar-expand-lg navbar-light bg-white">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img
+            src="/static/img/logo.svg"
+            alt=""
+            width="30"
+            height="24"
+            class="d-inline-block align-text-top"
+          />
+          Stutern Pay
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}"
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
         </div>
 
-        <!-- Transaction Content -->
-        <div class="tab-pane fade content" id="transaction">
-          <!-- Add content for Transaction tab, e.g., a list of transactions -->
-          <div class="row justify-content-center">
-            <div class="col-12 col-lg-6">
-              <div class="mx-auto wrapper">
-                <header>Send wale</header>
-              </div>
-            </div>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="offcanvas offcanvas-start"
+          tabindex="-1"
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+              Stutern Pay
+            </h5>
+
+            <button
+              type="button"
+              class="btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}"
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
+    </nav>
+
+    <!----------------------- Main Container -------------------------->
+    <div class="align-self-start d-flex justify-content-center">
+      <div class="row rounded-5 p-3 bg-white box-area">
+        <div class="container">
+          <!-- Swap Content -->
+
+          <div
+            class="mx-auto wrapper d-flex align-self-start justify-content-center flex-column"
+          >
+            <header>Recipient Details</header>
+
+            <!-- Existing form content remains unchanged -->
+            <form action="#" id="sendFundsForm">
+              <!-- Send Section -->
+              <div class="mb-2 custom-input">
+                <input
+                  type="text"
+                  id="beneficiaryName"
+                  name="beneficiaryName"
+                  placeholder="Beneficiary Name"
+                />
+              </div>
+              <div class="mb-2 custom-input">
+                <input
+                  type="text"
+                  id="beneficiaryAccountNumber"
+                  name="beneficiaryAccountNumber"
+                  placeholder="Beneficiary Account Number"
+                />
+              </div>
+
+              <div class="mb-2 custom-input">
+                <input
+                  type="text"
+                  id="bankName"
+                  name="bankName"
+                  placeholder="Bank Name"
+                />
+              </div>
+
+              <div class="mb-2 custom-input">
+                <input type="text" id="iban" name="iban" placeholder="IBAN " />
+              </div>
+              <div class="mb-2 custom-input">
+                <input
+                  type="text"
+                  id="Swift"
+                  name="Swift"
+                  placeholder="Swift"
+                />
+              </div>
+
+              <button
+                type="button"
+                id="openPaymentConfirmation"
+                class="btn btn-success"
+              >
+                Proceed
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"
+      ></script>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      /* Your existing JavaScript code remains unchanged */
-
-      // Function to show/hide content based on navigation
-      function showContent(contentId) {
-        var contents = document.getElementsByClassName("content");
-        for (var i = 0; i < contents.length; i++) {
-          contents[i].classList.remove("active");
-        }
-
-        var contentToShow = document.getElementById(contentId);
-        contentToShow.classList.add("active");
-      }
-    </script>
-    <script>
-      let country_list = {
-        CAD: "CA",
-        GBP: "GB",
-        NGN: "NG",
-        USD: "US",
-      };
-
-      const dropList = document.querySelectorAll("form select"),
-        fromCurrency = document.querySelector(".from select"),
-        toCurrency = document.querySelector(".to select"),
-        getButton = document.querySelector("form button"),
-        amountInput = document.querySelector("form input");
-
-      for (let i = 0; i < dropList.length; i++) {
-        for (let currency_code in country_list) {
-          let selected =
-            i == 0
-              ? currency_code == "USD"
-                ? "selected"
-                : ""
-              : currency_code == "NPR"
-              ? "selected"
-              : "";
-          let optionTag = `<option value="${currency_code}" ${selected}>${currency_code}</option>`;
-          dropList[i].insertAdjacentHTML("beforeend", optionTag);
-        }
-        dropList[i].addEventListener("change", (e) => {
-          loadFlag(e.target);
-        });
-      }
-
-      function loadFlag(element) {
-        for (let code in country_list) {
-          if (code == element.value) {
-            let imgTag = element.parentElement.querySelector("img");
-            imgTag.src = `https://flagcdn.com/48x36/${country_list[
-              code
-            ].toLowerCase()}.png`;
-          }
-        }
-      }
-
-      window.addEventListener("load", () => {
-        getExchangeRate();
-      });
-
-      amountInput.addEventListener("input", () => {
-        let inputValue = amountInput.value.trim();
-        // Allow only numbers (including decimals)
-        amountInput.value = inputValue.replace(/[^0-9.]/g, "");
-
-        getExchangeRate();
-      });
-
-      amountInput.addEventListener("input", () => {
-        if (amountInput.value.trim() === "") {
-          clearExchangeRate();
-        }
-      });
-
-      getButton.addEventListener("click", (e) => {
-        e.preventDefault();
-        getExchangeRate();
-      });
-
-      const exchangeIcon = document.querySelector("form .icon");
-      exchangeIcon.addEventListener("click", () => {
-        let tempCode = fromCurrency.value;
-        fromCurrency.value = toCurrency.value;
-        toCurrency.value = tempCode;
-        loadFlag(fromCurrency);
-        loadFlag(toCurrency);
-        getExchangeRate();
-      });
-
-      function getExchangeRate() {
-        const exchangeRateTxt = document.querySelector("form .exchange-rate");
-        const transactionFeeInput = document.getElementById("transactionFee");
-        let amountVal = amountInput.value.trim();
-
-        if (amountVal === "") {
-          clearExchangeRate();
-          return;
-        }
-
-        exchangeRateTxt.innerText = "Getting exchange rate...";
-        let url = `https://v6.exchangerate-api.com/v6/b660905cac3ae9db40d489d8/latest/${fromCurrency.value}`;
-
-        fetch(url)
-          .then((response) => response.json())
-          .then((result) => {
-            let exchangeRate = result.conversion_rates[toCurrency.value];
-            let totalExRate = (amountVal * exchangeRate).toFixed(2);
-
-            let feeAmount = (transactionFeeInput.value / 100) * totalExRate;
-            feeAmount = feeAmount.toFixed(2);
-            let totalAmountWithFee = (
-              parseFloat(totalExRate) + parseFloat(feeAmount)
-            ).toFixed(2);
-
-            exchangeRateTxt.innerText = `${amountVal} ${fromCurrency.value} = ${totalExRate} ${toCurrency.value}`;
-          })
-          .catch(() => {
-            exchangeRateTxt.innerText = "Something went wrong";
-          });
-      }
-
-      function clearExchangeRate() {
-        const exchangeRateTxt = document.querySelector("form .exchange-rate");
-        exchangeRateTxt.innerText = "";
-      }
-    </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Get the tab element by its ID
-        var exchangeRateTab = document.getElementById("exchange-rate-new");
-
-        // Add the 'show' and 'active' classes to make it the default selected tab
-        exchangeRateTab.classList.add("show", "active");
-      });
-    </script>
   </body>
 </html>

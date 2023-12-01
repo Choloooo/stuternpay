@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Your existing head content remains unchanged -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      /* Your existing styles remain unchanged */
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 10px;
+        background: #caf5e1;
+        min-height: 100%;
+      }
+      html,
+      body {
+        min-height: 100%;
+        width: 100%;
+        height: 100%;
+      }
+      .wrapper {
+        width: 400px;
+        padding: 30px;
+        border-radius: 7px;
+        background: #fff;
+        box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.05);
+      }
+
+      .wrapper header {
+        font-size: 28px;
+        font-weight: 500;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .wrapper form {
+        margin: 20px 0;
+      }
+
+      /* Add the new styles for the navigation */
+      .nav {
+        display: flex;
+        background-color: #333;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        justify-content: center;
+        z-index: 1000; /* Ensure it's above other elements */
+      }
+
+      .nav a {
+        color: white;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+
+      .nav a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+
+      /* Add styles for the content containers */
+      .content {
+        display: none;
+        text-align: center;
+        margin-top: 60px;
+      }
+
+      .content.active {
+        display: block;
+      }
+      .select-box {
+        display: flex;
+        align-items: center;
+      }
+
+      .select-box img {
+        max-width: 21px;
+        margin-right: 5px;
+      }
+
+      .select-box select {
+        font-size: 16px;
+        background: none;
+        flex: 1;
+        margin-left: 10px;
+      }
+      div.select-box.select-boxx {
+        border-radius: 2px solid #999;
+      }
+      p {
+        text-align: left;
+      }
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      .wrapper {
+        width: 100%;
+        max-width: none; /* Remove any maximum width */
+        padding: 30px;
+        border-radius: 7px;
+        background: #fff;
+        box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.05);
+        margin: 0; /* Remove any margins */
+      }
+
+      .wrapper form {
+        width: 100%; /* Set the form width to 100% */
+        max-width: none; /* Remove any maximum width */
+      }
+      .form-container {
+        max-width: 400px;
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      form input {
+        height: 50px;
+        font-size: 17px;
+        padding: 0 15px;
+        border: 1px solid #999;
+      }
+
+      form button {
+        height: 52px;
+        color: #fff;
+        font-size: 17px;
+        cursor: pointer;
+        background: #675afe;
+        transition: 0.3s ease;
+      }
+
+      form input {
+        height: 50px; /* Adjust this value as needed */
+        font-size: 17px;
+        padding: 0 15px;
+        border: 1px solid #999;
+      }
+
+      form button:hover {
+        background: #4534fe;
+      }
+
+      form :where(input, select, button) {
+        width: 100%;
+        outline: none;
+        border-radius: 5px;
+        border: none;
+        margin-bottom: 15px;
+        margin-top: 15px;
+      }
+
+      form p {
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+
+      form input:focus {
+        padding: 0 14px;
+        border: 2px solid #675afe;
+      }
+
+      .from,
+      .to {
+        flex: 1;
+        margin-right: 10px; /* Adjust as needed for spacing */
+      }
+
+      .custom-input {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .custom-input input {
+        flex: 3;
+      }
+
+      .card {
+        width: 100%;
+        max-width: 400px;
+      }
+
+      /* Add media queries to change the layout for smaller screens */
+      @media (max-width: 768px) {
+        .card {
+          width: 80%;
+        }
+
+        h3 {
+          font-size: 1.5rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .card {
+          width: 90%;
+        }
+
+        h3 {
+          font-size: 1.2rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .card {
+          width: 95%;
+        }
+
+        h3 {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="container d-flex mx-auto align-items-center">
+    <!-- New navigation menu -->
+    <div class="nav">
+      <a href="#" onclick="showContent('swap')">Send</a>
+      <a
+        href="{% url 'exchange_rate' %}#exchange-rate-new"
+        onclick="showContent('exchange-rate-new')"
+        >Exchange Rate</a
+      >
+
+      <a
+        href="{% url 'payment_details' %}#transaction"
+        onclick="showContent('transaction')"
+        >Transaction</a
+      >
+    </div>
+
+    <!-- Content containers -->
+    <div class="container mt-5">
+      <div class="tab-content mt-2">
+        <!-- Swap Content -->
+        <div class="tab-pane fade show active content" id="swap">
+          <div class="row justify-content-center">
+            <div class="col-12 col-lg-6">
+              <div class="mx-auto wrapper">
+                <header>Send Fund</header>
+
+                <!-- Existing form content remains unchanged -->
+                <form action="#" id="sendFundsForm">
+                  <!-- Send Section -->
+                  <p>Send</p>
+                  <div class="mb-3 from custom-input">
+                    <input
+                      type="text"
+                      id="sendAmount"
+                      name="sendAmount"
+                      value=""
+                    />
+                    <div class="select-box">
+                      <img src="https://flagcdn.com/48x36/us.png" alt="flag" />
+                      <select id="fromCurrency" name="fromCurrency">
+                        <!-- Options tag are inserted from JavaScript -->
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Recipient Section -->
+                  <p>Recipient receive:</p>
+
+                  <div class="to custom-input">
+                    <input
+                      type="text"
+                      id="recipientAmount"
+                      name="recipientAmount"
+                      value=""
+                      readonly
+                    />
+
+                    <div class="select-box">
+                      <img src="https://flagcdn.com/48x36/us.png" alt="flag" />
+                      <select id="toCurrency" name="toCurrency">
+                        <!-- Options tag are inserted from JavaScript -->
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="transaction-fee" id="transactionFee">
+                    <p class="exchange-rate"></p>
+                    <p id="recipientAmountValue">wt should be</p>
+                    <p id="feeValue"></p>
+                    <p id="totalValue"></p>
+                  </div>
+
+                  <button
+                    type="button"
+                    id="openPaymentConfirmation"
+                    class="btn btn-primary"
+                  >
+                    Proceed
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container mt-5">
+          <div class="tab-content mt-2">
+            <!-- Exchange Rate Content -->
+            <div class="tab-pane fade content show active" id="exchange-rate-new">
+              <div class="row justify-content-center">
+                <div class="col-12 col-lg-6">
+                  <div class="mx-auto wrapper">
+                    <header>Exchange Rate</header>
+                    <form action="#">
+                      <!-- Send Section -->
+                      <p>Amount:</p>
+                      <div class="from custom-input">
+                        <input type="text" value="" />
+                      </div>
+                      <div class="drop-list center-content">
+                        <div class="from">
+                          <p>From</p>
+                          <div class="select-box">
+                            <img
+                              src="https://flagcdn.com/48x36/us.png"
+                              alt="flag"
+                            />
+                            <select class="form-select">
+                              <!-- Options tag are inserted from JavaScript -->
+                              <option value="CAD">CAD</option>
+                              <option value="GBP">GBP</option>
+                              <option value="NGN">NGN</option>
+                              <option value="USD" selected="">USD</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="icon"><i class="fas fa-exchange-alt"></i></div>
+                        <div class="to">
+                          <p>To</p>
+                          <div class="select-box">
+                            <img
+                              src="https://flagcdn.com/48x36/np.png"
+                              alt="flag"
+                            />
+                            <select class="form-select">
+                              <!-- Options tag are inserted from JavaScript -->
+                              <option value="CAD">CAD</option>
+                              <option value="GBP">GBP</option>
+                              <option value="NGN">NGN</option>
+                              <option value="USD">USD</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+    
+                      <!-- Recipient Section -->
+    
+                      <div class="transaction-fee" id="transactionFee"></div>
+    
+                      <p class="exchange-rate"></p>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+        <!-- Transaction Content -->
+        <div class="tab-pane fade content" id="transaction">
+          <!-- Add content for Transaction tab, e.g., a list of transactions -->
+          <div class="row justify-content-center">
+            <div class="col-12 col-lg-6">
+              <div class="mx-auto wrapper">
+                <header>Add beneficiary</header>
+                <form action="{% url 'add_beneficiary' %}" method="post">
+                  <div class="shadow p-5 mx-auto" style="max-width: 40rem">
+                    <!-- Send Section -->
+                    {% csrf_token %}
+                    <p>Full Name</p>
+                    <div class="mb-3 from custom-input">
+                      <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        value=""
+                      />
+                    </div>
+                    <p>Account number</p>
+                    <div class="mb-3 from custom-input">
+                      <input
+                        type="text"
+                        id="accountNumber"
+                        name="accountNumber"
+                        value=""
+                      />
+                    </div>
+                    <p>Bank</p>
+                    <div class="mb-3 from custom-input">
+                      <input type="text" id="bank" name="bank" value="" />
+                    </div>
+                    <p>Country</p>
+                    <div class="mb-3 from custom-input">
+                      <input type="text" id="country" name="country" value="" />
+                    </div>
+                    <p>SWIFT</p>
+                    <div class="mb-3 from custom-input">
+                      <input type="text" id="swift" name="swift" value="" />
+                    </div>
+
+                    <p>IBAN</p>
+                    <div class="mb-3 from custom-input">
+                      <input type="text" id="iban" name="iban" value="" />
+                    </div>
+
+                    <!-- Recipient Section -->
+
+                    <button type="submit" class="btn btn-primary">
+                      Add Beneficiary
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      /* Your existing JavaScript code remains unchanged */
+
+      // Function to show/hide content based on navigation
+      function showContent(contentId) {
+        var contents = document.getElementsByClassName("content");
+        for (var i = 0; i < contents.length; i++) {
+          contents[i].classList.remove("active");
+        }
+
+        var contentToShow = document.getElementById(contentId);
+        contentToShow.classList.add("active");
+      }
+    </script>
+    <script>
+      let country_list = {
+        CAD: "CA",
+        GBP: "GB",
+        NGN: "NG",
+        USD: "US",
+      };
+
+      // Update the selector to cover both forms
+      const forms = document.querySelectorAll("form"),
+        getButton = document.getElementById("openPaymentConfirmation");
+
+      forms.forEach((form) => {
+        const dropList = form.querySelectorAll("select"),
+          fromCurrency = form.querySelector(".from select"),
+          toCurrency = form.querySelector(".to select"),
+          amountInput = form.querySelector("input#sendAmount");
+
+        for (let i = 0; i < dropList.length; i++) {
+          for (let currency_code in country_list) {
+            let selected =
+              i == 0
+                ? currency_code == "USD"
+                  ? "selected"
+                  : ""
+                : currency_code == "NPR"
+                ? "selected"
+                : "";
+            let optionTag = `<option value="${currency_code}" ${selected}>${currency_code}</option>`;
+            dropList[i].insertAdjacentHTML("beforeend", optionTag);
+          }
+          dropList[i].addEventListener("change", (e) => {
+            loadFlag(e.target);
+          });
+        }
+
+        function loadFlag(element) {
+          for (let code in country_list) {
+            if (code == element.value) {
+              let imgTag = element.parentElement.querySelector("img");
+              imgTag.src = `https://flagcdn.com/48x36/${country_list[
+                code
+              ].toLowerCase()}.png`;
+            }
+          }
+        }
+        fromCurrency.addEventListener("change", () => {
+          getExchangeRate(form);
+        });
+
+        toCurrency.addEventListener("change", () => {
+          getExchangeRate(form);
+        });
+        // Input event listener for amount field with validation
+        amountInput.addEventListener("input", () => {
+          let inputValue = amountInput.value.trim();
+          if (!/^\d*\.?\d*$/.test(inputValue)) {
+            amountInput.value = inputValue.slice(0, -1);
+          }
+
+          getExchangeRate(form);
+        });
+      });
+
+      function getExchangeRate(form) {
+        const exchangeRateTxt = form.querySelector(".exchange-rate");
+        const recipientAmountTxt = form.querySelector("#recipientAmountValue");
+        const feeValueValTxt = form.querySelector("#feeValue");
+        const totalValueValTxt = form.querySelector("#totalValue");
+
+        const transactionFeeInput = form.querySelector("#transactionFee");
+        const fromCurrency = form.querySelector(".from select");
+        const toCurrency = form.querySelector(".to select");
+        const amountInput = form.querySelector("input#sendAmount");
+        const recipientAmountInput = form.querySelector(
+          "input#recipientAmount"
+        );
+
+        let amountVal = amountInput.value.trim();
+        let transactionFee = parseFloat(transactionFeeInput.value) || 0.5;
+
+        if (amountVal === "") {
+          exchangeRateTxt.innerText = "";
+          recipientAmountInput.value = "";
+          recipientAmountTxt.innerText = "";
+          feeValueValTxt.innerText = "";
+          totalValueValTxt.innerText = "";
+
+          return;
+        }
+
+        exchangeRateTxt.innerText = "Getting exchange rate...";
+        let url = `https://v6.exchangerate-api.com/v6/b660905cac3ae9db40d489d8/latest/${fromCurrency.value}`;
+
+        fetch(url)
+          .then((response) => response.json())
+          .then((result) => {
+            let exchangeRate = result.conversion_rates[toCurrency.value];
+            let totalExRate = (amountVal * exchangeRate).toFixed(2);
+
+            let feeAmount = (transactionFee / 100) * totalExRate;
+            feeAmount = feeAmount.toFixed(2);
+            let totalAmountWithFee = (
+              parseFloat(amountVal) + parseFloat(feeAmount)
+            ).toFixed(2);
+
+            exchangeRateTxt.innerText = "";
+            recipientAmountTxt.innerText = `Reciever Gets: ${totalExRate} ${toCurrency.value}`;
+            feeValue.innerText = `Transaction Fee: ${feeAmount} ${fromCurrency.value}`;
+            totalValue.innerText = `Total Payment:  ${totalAmountWithFee} ${fromCurrency.value}`;
+
+            // Update the recipient amount input
+            recipientAmountInput.value = totalExRate;
+            sessionStorage.setItem("feeAmount", feeAmount);
+            sessionStorage.setItem("totalAmountWithFee", totalAmountWithFee);
+            /*document.getElementById("feeValue").innerText =
+              "Transaction Fee: " + feeAmount + fromCurrency.value;
+            document.getElementById("totalValue").innerText =
+              "Total Payment: " + totalAmountWithFee + fromCurrency.value;
+            document.getElementById("recipientAmountValue").innerText =
+              "Reciever Gets:" + recipientAmountInput.value + toCurrency.value; */
+          })
+          .catch(() => {
+            exchangeRateTxt.innerText = "Something went wrong";
+
+            return;
+          });
+      }
+    </script>
+
+    <script>
+      // Your JavaScript code
+      document
+        .getElementById("openPaymentConfirmation")
+        .addEventListener("click", function () {
+          // Get values from the form
+          var sendAmount = document.getElementById("sendAmount").value;
+          var recipientAmount =
+            document.getElementById("recipientAmount").value;
+          var fromCurrency = document.querySelector(
+            "form select[name='fromCurrency']"
+          ).value;
+          var toCurrency = document.querySelector(
+            "form select[name='toCurrency']"
+          ).value;
+
+          var toCurrency = document.querySelector(
+            "form select[name='toCurrency']"
+          ).value;
+
+          // Additional values to store
+
+          // Store values in sessionStorage
+
+          sessionStorage.setItem("sendAmount", sendAmount);
+          sessionStorage.setItem("recipientAmount", recipientAmount);
+          sessionStorage.setItem("fromCurrency", fromCurrency);
+          sessionStorage.setItem("toCurrency", toCurrency);
+
+          window.location.href = "{% url 'payment_confirmation' %}";
+        });
+    </script>
+
+    <script>
+      function validateForm() {
+        var name = document.getElementById("fullname").value;
+        var accountNumber = document.getElementById("accountnumber").value;
+        var bankName = document.getElementById("bankname").value;
+        var country = document.getElementById("country").value;
+
+        // Basic validation for required fields
+        if (!name || !accountNumber || !bankName || !country) {
+          alert("Please fill in all required fields.");
+          return false;
+        }
+
+        // Additional validation for specific fields
+        if (accountNumber.length < 10) {
+          alert("Account number must be at least 10 characters.");
+          return false;
+        }
+
+        // Add more validation rules as needed
+
+        return true; // Proceed with form submission
+      }
+    </script>
+  </body>
+</html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {% load static %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Payment Details</title>
@@ -10,9 +11,11 @@
       rel="stylesheet"
     />
     <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
       body {
         background-color: #f8f9fa;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-family: "Poppins", sans-serif;
       }
 
       .container {
@@ -82,10 +85,96 @@
         font-size: 12px;
         margin-top: 10px;
       }
+      body {
+        scrollbar-width: thin; /* For Firefox */
+        overflow-y: scroll; /* For IE, Edge, and Chrome */
+      }
+
+      ::-webkit-scrollbar {
+        width: 6px; /* Width of the scrollbar */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: #888; /* Color of the scrollbar thumb */
+        border-radius: 3px; /* Rounded corners of the thumb */
+      }
+
+      ::-webkit-scrollbar-track {
+        background-color: #f1f1f1; /* Color of the scrollbar track */
+      }
     </style>
   </head>
 
   <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img
+            src="{% static 'img/logo.svg' %}"
+            alt=""
+            width="30"
+            height="24"
+            class="d-inline-block align-text-top"
+          />
+          Stutern Pay
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="offcanvas offcanvas-start"
+          tabindex="-1"
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+              Stutern Pay
+            </h5>
+
+            <button
+              type="button"
+              class="btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
     <div class="container">
       <div class="card">
         <h2 class="card-title text-center">Payment Details</h2>
@@ -98,8 +187,12 @@
         <h3>Transfer details:</h3>
         <ul class="list-group mb-3">
           <li class="list-group-item">
-            <strong>Amount to send:</strong> NGN 1,329,243.82
+            Amount to send:
+            <span id="totalPayable"></span>&nbsp;<span
+              id="fromAmtCurrency"
+            ></span>
           </li>
+
           <li class="list-group-item">
             <strong>Account number:</strong> 9466 5277 86
           </li>
@@ -108,7 +201,8 @@
 
         <p class="expiration-message">
           These account details are only valid for this specific transaction and
-          will expire in 30 minutes and 50 seconds.
+          will expire in
+          <span id="timer" style="font-weight: bold">30:50</span>.
         </p>
 
         <a
@@ -127,14 +221,116 @@
     <!-- Bootstrap JS and Popper.js (required for Bootstrap JavaScript plugins) -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
 
     <script src="https://cdn.skypack.dev/inputmask@5.0.6"></script>
+
     <script>
+      // Function to retrieve the CSRF token from the cookie
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(";").shift();
+      }
+    </script>
+
+    <!-- Your existing script -->
+    <script>
+      // Event listener for the button click
       document
         .getElementById("openTransProcess")
-        .addEventListener("click", function () {
-          window.location.href = "{% url 'transaction' %}";
+        .addEventListener("click", async function () {
+          // Retrieve session data from browser storage (assuming you're using sessionStorage)
+
+          const sessionData = {
+            beneficiaryAccountNumber: sessionStorage.getItem(
+              "beneficiaryAccountNumber"
+            ),
+            toCurrency: sessionStorage.getItem("toCurrency"),
+            sendAmount: sessionStorage.getItem("sendAmount"),
+            beneficiaryName: sessionStorage.getItem("beneficiaryName"),
+            bankName: sessionStorage.getItem("bankName"),
+            swift: sessionStorage.getItem("swift"),
+            totalAmountWithFee: sessionStorage.getItem("totalAmountWithFee"),
+            iban: sessionStorage.getItem("iban"),
+            feeAmount: sessionStorage.getItem("feeAmount"),
+            fromCurrency: sessionStorage.getItem("fromCurrency"),
+            country: sessionStorage.getItem("country"),
+            recipientAmount: sessionStorage.getItem("recipientAmount"),
+          };
+
+          const csrftoken = getCookie("csrftoken");
+          sessionStorage.setItem(
+            "paymentTransactionDetails",
+            JSON.stringify(sessionData)
+          );
+
+          try {
+            const response = await fetch("/process_payment/", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken,
+              },
+              body: JSON.stringify({ data: sessionData }),
+            });
+
+            if (response.ok) {
+              // Success: handle the response
+              console.log("Data sent successfully");
+              window.location.href = "/transaction-processing/";
+            } else {
+              // Error: handle the error response
+              console.error("Error sending data:", await response.text());
+            }
+          } catch (error) {
+            console.error("Error:", error);
+          }
         });
+    </script>
+    <script>
+      var totalAmountWithFee = sessionStorage.getItem("totalAmountWithFee");
+      var fromCurrency = sessionStorage.getItem("fromCurrency");
+
+      // Update the content of the "totalPayable" element with the retrieved value
+      document.getElementById("totalPayable").innerText = totalAmountWithFee;
+      document.getElementById("fromAmtCurrency").innerText = fromCurrency;
+
+      const countdownElement = document.getElementById("timer");
+      let timeRemaining = 1850; // 30 minutes and 50 seconds in seconds
+
+      // Function to update the countdown
+      function updateCountdown() {
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        countdownElement.textContent = `${minutes}:${
+          seconds < 10 ? "0" : ""
+        }${seconds}`;
+
+        // Change the color when time is running out
+        if (timeRemaining <= 300) {
+          // for example, change color when 5 minutes or less remaining
+          countdownElement.classList.add("expired");
+        } else {
+          countdownElement.classList.remove("expired");
+        }
+      }
+
+      // Start the countdown
+      const countdownInterval = setInterval(function () {
+        if (timeRemaining > 0) {
+          timeRemaining--;
+          updateCountdown();
+        } else {
+          clearInterval(countdownInterval);
+          // Optionally, you can handle what happens when the timer reaches 0
+          alert("The payment window has expired.");
+        }
+      }, 1000); // Update every second
     </script>
   </body>
 </html>

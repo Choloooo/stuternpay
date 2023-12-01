@@ -1,41 +1,69 @@
-<div class="tab-pane fade" id="exchange-rate">
-    <div class="tab-content mt-2">
-      <div class="tab-pane fade show active" id="swap">
-        <div class="row justify-content-center">
-          <div class="col-12 col-lg-6">
-            <!-- Add content for Exchange Rate tab, e.g., a graph to show rates -->
-            <div class="wrapper">
-              <header>exchange rate</header>
-              <form action="#">
-                <div class="amountt">
-                  <p>Enter Amount</p>
-                  <input type="text" value="0">
-                </div>
-                <div class="amountt">
-                  <div class="drop-listt">
-                    <div class="fromm">
-                      <p>From</p>
-                      <div class="select-boxx">
-                        <img src="https://flagcdn.com/48x36/us.png" alt="flag">
-                        <select> <!-- Options tag are inserted from JavaScript --> </select>
-                      </div>
-                    </div>
-                    <div class="iconn"><i class="fas fa-exchange-alt"></i></div>
-                    <div class="to">
-                      <p>To</p>
-                      <div class="select-boxx">
-                        <img src="https://flagcdn.com/48x36/np.png" alt="flag">
-                        <select> <!-- Options tag are inserted from JavaScript --> </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="exchange-ratee">Getting exchange rate...</div>
-                  <button>Get Exchange Rate</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+<nav class="container navbar navbar-expand-lg navbar-light bg-white">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img
+        src="{% static 'img/logo.svg' %}"
+        alt=""
+        width="30"
+        height="24"
+        class="d-inline-block align-text-top"
+      />
+      Stutern Pay
+    </a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}"
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+      </ul>
+    </div>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="offcanvas offcanvas-start"
+      tabindex="-1"
+      id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+          Stutern Pay
+        </h5>
+
+        <button
+          type="button"
+          class="btn-close text-reset"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}"
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
+</nav>
