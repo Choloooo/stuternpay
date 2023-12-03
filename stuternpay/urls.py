@@ -24,6 +24,8 @@ urlpatterns = [
     path("", include("users.urls")),  # Add this line
     path("", include("payment.urls")),  # Add this line
     path("", include("beneficiary.urls")),  # Add this line
+    path('accounts/', include('allauth.urls')),
+    
 ]
 
 if settings.DEBUG:

@@ -80,11 +80,9 @@
     </style>
   </head>
   <body>
-    <nav
-      class="container navbar navbar-expand-lg navbar-light bg-white fixed-top"
-    >
+    <nav class="container navbar navbar-expand-lg navbar-light bg-white">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{% url 'home' %}">
           <img
             src="{% static 'img/logo.svg' %}"
             alt=""
@@ -107,6 +105,7 @@
             </li>
           </ul>
         </div>
+
         <button
           class="navbar-toggler"
           type="button"
@@ -126,6 +125,7 @@
             <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
               Stutern Pay
             </h5>
+
             <button
               type="button"
               class="btn-close text-reset"
@@ -185,23 +185,28 @@
         <!------------------------- Right Box --------------------------->
         <div class="col-md-6 right-box">
           <div class="row align-items-center">
-            <div class="header-text mb-4">
+            <div class="header-text">
               <h2>YAY!, Welcome to Stutern Pay</h2>
               <p>Please sign up.</p>
               <!-- Display error message if available -->
               {% if messages %}
-              <div class="col-md-12 mb-3" id="alert-container">
+              <ul
+                style="padding: 0; list-style-type: none; margin: 0"
+                id="alert-container"
+              >
                 {% for message in messages %}
-                <div
-                  class="alert {% if message.tags %}{% if message.tags == 'success' and message == 'User has been created successfully. Please log in.' %}alert-success{% else %}alert-{{ message.tags }}{% endif %}{% endif %}"
+                <li
+                  class="alert {% if message.tags %}{% if message.tags == 'success' %}alert-success{% else %}alert-{{ message.tags }}{% endif %}{% endif %}"
                   role="alert"
+                  style="padding: 0; list-style-type: circle; margin: 0"
                 >
                   {{ message }}
-                </div>
+                </li>
                 {% endfor %}
-              </div>
+              </ul>
               {% endif %}
             </div>
+
             <form action="{% url 'register' %}" method="post">
               {% csrf_token %}
               <div class="input-group mb-3">
@@ -290,6 +295,9 @@
         </div>
       </div>
     </div>
+    <footer class="text-center mt-3">
+      <p class="mb-0">Developed by Cholo C &copy; 2023</p>
+    </footer>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -300,6 +308,7 @@
         var alertContainer = document.getElementById("alert-container");
         if (alertContainer) {
           setTimeout(function () {
+            alertContainer.style.transition = "opacity 0.6s"; // Add transition for smooth fade-out
             alertContainer.style.opacity = 0;
             setTimeout(function () {
               alertContainer.style.display = "none";
