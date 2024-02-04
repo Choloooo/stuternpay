@@ -1,7 +1,9 @@
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     {% load static %}
+
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -201,13 +203,14 @@
             </div>
 
             <!-- Display error message if available -->
+            <!-- Display error message if available -->
             {% if messages %}
             <div class="col-md-12 mb-3" id="alert-container">
               {% for message in messages %}
               <div
                 class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}"
                 role="alert"
-                style="color: red"
+                style="color: {% if message.tags == 'success' %}green{% else %}red{% endif %}"
               >
                 {{ message }}
               </div>
@@ -254,14 +257,19 @@
                 </button>
               </div>
               <div class="input-group mb-3">
-                <button type="submit" class="btn btn-lg btn-light w-100 fs-6">
+                <a
+                  class="btn btn-lg btn-light w-100 fs-6"
+                  href="{% provider_login_url 'google' %}"
+                  target="_blank"
+                >
                   <img
                     src="https://img.icons8.com/color/48/google-logo.png"
                     alt="google-logo"
                     style="width: 20px"
                     class="me-2"
-                  /><small>Sign In with Google</small>
-                </button>
+                  />
+                  <small>Sign In with Google</small>
+                </a>
               </div>
               <div class="row">
                 <small

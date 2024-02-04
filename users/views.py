@@ -10,6 +10,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView
 from django.db import IntegrityError
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
@@ -27,7 +28,7 @@ def sign_in(request):
 
         if user is not None:
             login(request, user)
-            messages.success(request, "Welcome back, {}!".format(user.username))
+            
             return redirect("dashboard")
         else:
             messages.error(request, "Invalid credentials. Please try again.")
@@ -95,10 +96,11 @@ def register(request):
 
 def sign_out(request):
     logout(request)
+
     return redirect(
         "home"
     )  # Redirect to your home page or any other desired page
 
-
+@login_required(login_url='login')
 def dashboard(request):
     return render(request, "dashboard.html")

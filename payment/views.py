@@ -35,40 +35,40 @@ class PaymentView(View):
             # Redirect to success page or another view with the selected payment method
         return render(request, self.template_name, {"form": form})
 
-@login_required
+@login_required(login_url='login')
 def payment_details(request):
     return render(request, "payment_details.html")
 
-@login_required
+@login_required(login_url='login')
 def payment_confirmation(request):
     return render(request, "paymentconfirmation.html")
 
-@login_required
+@login_required(login_url='login')
 def payment_method(request):
     return render(request, "selectpaymentmethod.html")
 
-@login_required
+@login_required(login_url='login')
 def pay_by_card(request):
     # Your logic for handling payments by card
     return render(request, "cardpayment.html")
 
-@login_required
+@login_required(login_url='login')
 def pay_by_transfer(request):
     # Your logic for handling payments by transfer
     return render(request, "transfertobankoption.html")
 
-@login_required
+@login_required(login_url='login')
 def trans_process(request):
     # Your logic for handling payments by transfer
     return render(request, "transactionprocessing.html")
 
-@login_required
+@login_required(login_url='login')
 def exchange_rate(request):
     # Your logic for handling payments by transfer
     return render(request, "exchange_rate.html")
 
 
-@login_required
+@login_required(login_url='login')
 @csrf_exempt
 def process_payment(request):
     # Retrieve logged-in user
@@ -105,7 +105,7 @@ def process_payment(request):
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
 
-@login_required
+@login_required(login_url='login')
 def user_transaction(request):
     user_transaction = PaymentTransaction.objects.filter(user=request.user)
     for transaction in user_transaction:
@@ -116,7 +116,7 @@ def user_transaction(request):
 
 
 
-
+@login_required(login_url='login')
 def get_exchange_rate(request):
     from_currency = request.GET.get('from_currency')
 

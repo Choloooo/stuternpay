@@ -196,7 +196,7 @@
               >
                 {% for message in messages %}
                 <li
-                  class="alert {% if message.tags %}{% if message.tags == 'success' %}alert-success{% else %}alert-{{ message.tags }}{% endif %}{% endif %}"
+                  class="alert {% if message.tags %}{% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %}{% endif %}"
                   role="alert"
                   style="padding: 0; list-style-type: circle; margin: 0"
                 >

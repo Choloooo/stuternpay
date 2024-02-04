@@ -72,9 +72,7 @@
     color: var(--dark-brown);
   }
 
-  .navbar-brand {
-    padding: 46px 0;
-  }
+  
 
   a.nav-link {
     margin-right: 39px;
@@ -180,9 +178,7 @@
   }
 
   @media (max-width: 992px) {
-    .navbar {
-      padding: 22px 0;
-    }
+    
 
     .navbar-brand img {
       max-height: 50px;
